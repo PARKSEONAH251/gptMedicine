@@ -1,24 +1,16 @@
-import logo from './logo.svg';
-import './App.css';
+import React from "react";
+import { BrowserRouter as Router, Routes, Route } from "react-router-dom";
+import LoginJoin from "./page/LoginJoin";
+import Flashback from "./page/Flashback"; // 넘어가기 버튼이 있는 페이지 (예시)
 
 function App() {
   return (
-    <div className="App">
-      <header className="App-header">
-        <img src={logo} className="App-logo" alt="logo" />
-        <p>
-          Edit <code>src/App.js</code> and save to reload.
-        </p>
-        <a
-          className="App-link"
-          href="https://reactjs.org"
-          target="_blank"
-          rel="noopener noreferrer"
-        >
-          Learn React
-        </a>
-      </header>
-    </div>
+    <Router>
+      <Routes>
+        <Route path="/" element={<Flashback />} />         {/* 기본 페이지 */}
+        <Route path="/loginjoin" element={<LoginJoin />} /> {/* 이동할 페이지 */}
+      </Routes>
+    </Router>
   );
 }
 

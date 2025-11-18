@@ -32,9 +32,10 @@ export default function Flashback() {
     <div className="FlashBackContainer">
       <img src="/image/pattern.png" className="pattern-image" alt="Pattern" />
       <img src="/image/pattern1.png" className="pattern1-image" alt="Pattern1" />
-      <p className="welcome-text">환영합니다!</p><br/>
-      <p className="description-text">의료 AI 서비스 약찾고와 함께하세요.</p><br/>
-      <div className="carousel-container">
+      <div className="FlashBack-content-warpper">
+        <p className="FlashBack-welcome-text">환영합니다!</p>
+        <p className="FlashBack-description-text">의료 AI 서비스 약찾고와 함께하세요.</p>
+              <div className="carousel-container">
         <button className="scroll-btn left" onClick={scrollLeft}>
           <ChevronLeft size={24} />
         </button>
@@ -47,6 +48,7 @@ export default function Flashback() {
         <button className="scroll-btn right" onClick={scrollRight}>
           <ChevronRight size={24} />
         </button>
+      </div>
       </div>
       <button className="skip-button" onClick={handleSkip}>넘어가기</button>
     </div >

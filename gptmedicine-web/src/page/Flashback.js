@@ -29,11 +29,11 @@ export default function Flashback() {
   };
 
   return (
-    <div className="container">
+    <div className="FlashBackContainer">
       <img src="/image/pattern.png" className="pattern-image" alt="Pattern" />
       <img src="/image/pattern1.png" className="pattern1-image" alt="Pattern1" />
-      <text className="welcome-text">환영합니다!</text>
-      <text className="description-text">의료 AI 서비스 약찾고와 함께하세요.</text>
+      <p className="welcome-text">환영합니다!</p><br/>
+      <p className="description-text">의료 AI 서비스 약찾고와 함께하세요.</p><br/>
       <div className="carousel-container">
         <button className="scroll-btn left" onClick={scrollLeft}>
           <ChevronLeft size={24} />

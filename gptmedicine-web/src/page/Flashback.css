@@ -1,36 +1,54 @@
-.container{
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    height: 100vh;
-    background-color: #f5f5f5;
-    font-family: Arial, Helvetica, sans-serif;
-    box-sizing: border-box;
-    padding: 20px;
+.FlashBackContainer {
+  position: relative;
+  width: 100%;
+  height: 100vh;
+  background-color: #f5f5f5;
+  overflow: hidden;
+  font-family: Arial, Helvetica, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
 }
 
-.pattern-image{
-   position:fixed;
-   top: 0;
-   left: 0;
-   width: 50%;
-   height: auto;
-   z-index: 10;
+.FlashBackContainer .pattern-image {
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 50%;
+  height: auto;
+  z-index: 10;
 }
 
-.pattern1-image{
-    position: fixed;
-    bottom: 0;
-    left: 50%;
-    transform: translateX(-50%);
-    width: 70%;
-    height: auto;
-    z-index: 5;
+.FlashBackContainer .pattern1-image {
+  position: fixed;
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  width: 70%;
+  height: auto;
+  z-index: 5;
+}
+.FlashBackContainer .welcome-text {
+  position: absolute;
+  top: 10%;
+  width: 100%;
+  text-align: center;
+  font-size: 36px;
+  font-weight: bold;
+  color: #333;
+  z-index: 15;
+}
+.FlashBackContainer .description-text {
+  position: absolute;
+  top: 20%;
+  width: 100%;
+  text-align: center;
+  font-size: 20px;
+  color: #666;
+  z-index: 15;
 }
 
-/* 스크롤 버튼 */
-.scroll-btn {
+.FlashBackContainer .scroll-btn {
   position: absolute;
   top: 50%;
   transform: translateY(-50%);
@@ -44,27 +62,27 @@
   display: flex;
   align-items: center;
   justify-content: center;
-  z-index: 20; /* 패턴 위에 올리고 싶으면 20, 패턴보다 뒤면 8 */
+  z-index: 20;
   transition: all 0.2s ease;
 }
 
-.scroll-btn:hover {
+.FlashBackContainer .scroll-btn:hover {
   background-color: rgba(0, 0, 0, 0.8);
   transform: translateY(-50%) scale(1.1);
 }
 
-.scroll-btn.left {
+.FlashBackContainer .scroll-btn.left {
   left: 30px;
 }
 
-.scroll-btn.right {
+.FlashBackContainer .scroll-btn.right {
   right: 30px;
 }
 
-.skip-button {
+.FlashBackContainer .skip-button {
   position: absolute;
-  bottom: 20%;      /* 위쪽 여백 */
-  right: 20px;    /* 오른쪽 여백 */
+  bottom: 20%;
+  right: 20px;
   background-color: black;
   color: white;
   font-size: 20px;
@@ -73,11 +91,11 @@
   border: none;
   border-radius: 6px;
   cursor: pointer;
-  z-index: 30; /* 다른 이미지나 요소보다 위에 보이도록 */
+  z-index: 30;
   transition: all 0.2s ease;
 }
 
-.skip-button:hover {
+.FlashBackContainer .skip-button:hover {
   background-color: #333;
   transform: scale(1.05);
 }

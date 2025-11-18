@@ -28,11 +28,11 @@ export const db = getFirestore(app);
 // reCAPTCHA 설정 (전화번호 인증 필수)
 export const setRecaptcha = () => {
   window.recaptchaVerifier = new RecaptchaVerifier(
-    "recaptcha-container",
+    auth,                      // 첫 번째 인자 (v9)
+    "recaptcha-container",     // 두 번째 인자: DOM id
     {
-      size: "invisible", // 화면에 안 보이는 자동 검증
-    },
-    auth
+      size: "invisible",
+    }
   );
 };
 

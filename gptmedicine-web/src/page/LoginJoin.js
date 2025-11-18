@@ -15,7 +15,7 @@ export default function LoginJoin() {
   };
 
   return (
-    <div className="LoginContainer">
+    <div className="LoginJoinContainer">
       <img src="/image/pattern.png" className="Login-pattern-image" />
       <img src="/image/pattern1.png" className="Login-pattern1-image" />
 

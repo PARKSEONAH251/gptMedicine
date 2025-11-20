@@ -1,9 +1,20 @@
 import React from "react";
+import { useNavigate } from "react-router-dom";
 import "./Main.css";
 
 export default function Main() {
   const [input, setInput] = React.useState("");
-  const [patternHeight, setPatternHeight] = React.useState(0); // ⭐ 패턴 높이 저장
+  const [patternHeight, setPatternHeight] = React.useState(0); 
+  const navigate = useNavigate();
+
+  const handleSearch = () => {
+    if (!input, setInput()) {
+      alert("검색어를 입력해주세요.");
+      return;
+    }
+
+    navigate(`/search?query=${encodeURIComponent(input)}`);
+  };
 
   return (
     <div className="MainContainer">

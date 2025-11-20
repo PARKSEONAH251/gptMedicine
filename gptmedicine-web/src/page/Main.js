@@ -33,7 +33,7 @@ export default function Main() {
         <button className="CameraBtn">
           <img src="/image/camera.png" alt="Camera" />
           <span className="CameraText">촬영</span>
-        </button>
+        x</button>
       </div>
     </div>
   );

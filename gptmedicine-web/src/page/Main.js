@@ -8,11 +8,12 @@ export default function Main() {
   const navigate = useNavigate();
 
   const handleSearch = () => {
-    if (!input, setInput()) {
-      alert("검색어를 입력해주세요.");
+    if (!input.trim()) {
+      alert("약 이름 또는 정보를 입력해주세요!");
       return;
     }
 
+    //검색 페이지로 이동
     navigate(`/search?query=${encodeURIComponent(input)}`);
   };
 
@@ -37,6 +38,7 @@ export default function Main() {
             placeholder="Search"
             value={input}
             onChange={(e) => setInput(e.target.value)}
+            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
           />
           <button className="VoiceButton"><img src="/image/voice.png" alt="Voice" /></button>
         </div>
@@ -44,7 +46,7 @@ export default function Main() {
         <button className="CameraBtn">
           <img src="/image/camera.png" alt="Camera" />
           <span className="CameraText">촬영</span>
-        x</button>
+        </button>
       </div>
     </div>
   );

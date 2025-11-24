@@ -1,10 +1,11 @@
 import React, { useEffect, useState, useRef } from "react";
-import { useLocation } from "react-router-dom";
+import { useNavigate, useLocation } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
 import { askGPT } from "../api/gpt";
 import "./SearchResult.css";
 
 export default function SearchResult() {
+    const navigate = useNavigate();
     const location = useLocation();
     const query = new URLSearchParams(location.search).get("query");
 
@@ -12,6 +13,26 @@ export default function SearchResult() {
     const [answer, setAnswer] = useState("");
 
     const hasCalled = useRef(false);
+    const [input, setInput] = React.useState("");
+    const [patternHeight, setPatternHeight] = useState(0);
+
+    const handleSearch = () => {
+        if (!input.trim()) {
+            alert("궁금하신걸 입력하세요!");
+            return;
+        }
+
+        setAnswer("");
+        setLoading(true);
+        hasCalled.current = false;
+
+        navigate(`/search?query=${encodeURIComponent(input)}`);
+    };
+
+    // URL(query) 변경 시 무조건 GPT 다시 호출 허용
+    useEffect(() => {
+        hasCalled.current = false;
+    }, [query]);
 
     // 아이콘 매핑
     const iconMap = {
@@ -65,11 +86,19 @@ export default function SearchResult() {
 
     return (
         <div className="ResultContainer">
+            <img
+                src="/image/mini_pattern.png"
+                className="Result-PatternTop"
+                onLoad={(e) => setPatternHeight(e.target.offsetHeight)} // ⭐ 패턴 높이 측정
+            />
             <p className="ResultTitle"></p>
 
             {loading ? (
                 <div className="LoadingBox">
-                    <div className="Spinner"></div>
+                    <img
+                        src="/image/loadingpattern.png"
+                        className="LoadingImage"
+                    />
                     <p className="LoadingText">의약품 정보를 분석 중입니다...</p>
                 </div>
             ) : (
@@ -102,6 +131,17 @@ export default function SearchResult() {
                     })}
                 </div>
             )}
+            <div className="Result-SearchBox">
+                <input
+                    type="text"
+                    className="SearchInput"
+                    placeholder="Search"
+                    value={input}
+                    onChange={(e) => setInput(e.target.value)}
+                    onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                />
+                <button className="VoiceButton"><img src="/image/voice.png" alt="Voice" /></button>
+            </div>
         </div>
     );
 }

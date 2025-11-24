@@ -4,19 +4,64 @@
   max-width: 650px;
   margin: auto;
   font-family: "Pretendard", Arial, sans-serif;
+  position: relative;
+}
+
+/* 상단 패턴 */
+.Result-PatternTop {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 50%;
+  /* 패턴 전체 폭 적용 */
+  pointer-events: none;
+  z-index: 1;
 }
 
 .ResultTitle {
   font-size: 22px;
   font-weight: 900;
+  margin-top: 120px;
+  /* 패턴과 제목 사이 간격 확보 */
   margin-bottom: 25px;
   text-align: center;
+  z-index: 2;
+  position: relative;
 }
+
+.Result-SearchBox {
+  width: 100%;
+  max-width: 360px;
+
+  /* 중앙 정렬 핵심 코드 */
+  margin: 0 auto;
+
+  height: 45px;
+  background-color: #efefef;
+  border-radius: 25px;
+  display: flex;
+  align-items: center;
+  padding: 0 15px;
+  gap: 10px;
+}
+
 
 /* 로딩 */
 .LoadingBox {
   text-align: center;
   margin-top: 40px;
+}
+
+.LoadingImage {
+  width: 100%;
+  height: auto;
+  opacity: 0.9;
+  margin-bottom: 10px;
+}
+
+@keyframes fadeIn {
+  from { opacity: 0.4; }
+  to { opacity: 1; }
 }
 
 .Spinner {
@@ -48,49 +93,52 @@
   display: flex;
   align-items: flex-start;
   gap: 12px;
-  margin-bottom: 28px;
+  margin: 0 auto 26px auto;
+  width: 90%;
+  /* 카드 전체 크기 축소 */
+  max-width: 430px;
+  /* 모바일 느낌에 맞춤 */
 }
 
-/* 왼쪽 아이콘 (말풍선처럼) */
+/* 왼쪽 아이콘 */
 .icon-bubble {
-  font-size: 26px;
+  font-size: 24px;
   background: white;
-  width: 50px;
-  height: 50px;
+  width: 46px;
+  height: 46px;
   border-radius: 50%;
-  box-shadow: 0 3px 10px rgba(0, 0, 0, 0.15);
+  box-shadow: 0 3px 9px rgba(0, 0, 0, 0.15);
   display: flex;
   align-items: center;
   justify-content: center;
 }
 
-/* 오른쪽 말풍선 박스 */
+/* 말풍선 박스 */
 .bubble-box {
   flex: 1;
   background: white;
-  padding: 10px 20px;
+  padding: 14px 18px;
   border-radius: 15px;
-  box-shadow: 0 4px 15px rgba(0, 0, 0, 0.14);
-  /* border-left: 5px solid #181a1e; */
+  box-shadow: 0 4px 14px rgba(0, 0, 0, 0.14);
 }
 
 /* 제목 */
 .bubble-title {
-  font-size: 16px;
+  font-size: 15px;
   font-weight: 800;
-  margin-bottom: 10px;
+  margin-bottom: 8px;
 }
 
-/* 내용 */
+/* 본문 내용 */
 .bubble-content {
-  font-size: 11px;
+  font-size: 13px;
   line-height: 1.48;
   color: #333;
 }
 
 /* 리스트 */
 .bubble-content ul {
-  margin-left: 20px;
+  margin-left: 18px;
   margin-top: 4px;
 }
 
@@ -99,7 +147,7 @@
 }
 
 /* ============================= */
-/* 📱 반응형 모바일 최적화 */
+/* 📱 모바일 반응형 */
 /* ============================= */
 
 @media (max-width: 480px) {
@@ -107,21 +155,31 @@
     padding: 15px;
   }
 
+  .ResultTitle {
+    margin-top: 95px;
+    font-size: 20px;
+  }
+
+  .section-card {
+    gap: 10px;
+    width: 92%;
+  }
+
   .icon-bubble {
-    width: 44px;
-    height: 44px;
-    font-size: 22px;
+    width: 42px;
+    height: 42px;
+    font-size: 20px;
   }
 
   .bubble-box {
-    padding: 15px;
+    padding: 12px 15px;
   }
 
   .bubble-title {
-    font-size: 15px;
+    font-size: 14px;
   }
 
   .bubble-content {
-    font-size: 14px;
+    font-size: 12px;
   }
 }

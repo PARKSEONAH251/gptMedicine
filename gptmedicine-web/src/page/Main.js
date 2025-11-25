@@ -50,7 +50,7 @@ export default function Main() {
             <img src="/image/camera.png" alt="Camera" />
             <span className="CameraText">촬영</span>
           </button>
-          <button className="calendarBtn">
+          <button className="calendarBtn" onClick={() => navigate("/Calendar")}>
             <img src="/image/calendar.png" alt="Calendar" />
             <span className="CalendarText">일정 관리</span>
           </button>

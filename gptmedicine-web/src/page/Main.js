@@ -25,6 +25,7 @@ export default function Main() {
         className="Main-PatternTop"
         onLoad={(e) => setPatternHeight(e.target.offsetHeight)} // ⭐ 패턴 높이 측정
       />
+      {/* <button className="more"><img src="/image/more.png" alt="More" /></button> */}
       <img src="/image/Primary_Pattern.png" className="Login-Primary-PatternBottonimage" />
 
 
@@ -44,11 +45,16 @@ export default function Main() {
           />
           <button className="VoiceButton"><img src="/image/voice.png" alt="Voice" /></button>
         </div>
-
-        <button className="CameraBtn">
-          <img src="/image/camera.png" alt="Camera" />
-          <span className="CameraText">촬영</span>
-        </button>
+        <div className="btn-container">
+          <button className="CameraBtn">
+            <img src="/image/camera.png" alt="Camera" />
+            <span className="CameraText">촬영</span>
+          </button>
+          <button className="calendarBtn">
+            <img src="/image/calendar.png" alt="Calendar" />
+            <span className="CalendarText">일정 관리</span>
+          </button>
+        </div>
       </div>
     </div>
   );

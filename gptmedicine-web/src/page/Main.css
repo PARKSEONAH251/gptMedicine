@@ -11,7 +11,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 70%;  /* 중요: 50% → 100% */
+  width: 70%;
+  /* 중요: 50% → 100% */
   height: auto;
   pointer-events: none;
   z-index: 1;
@@ -22,13 +23,15 @@
   width: 100%;
   display: flex;
   flex-direction: column;
-  align-items: center;  /* 가로 중앙 */
-  justify-content: center; /* ⭐ 세로 중앙 정렬 추가 */
+  align-items: center;
+  /* 가로 중앙 */
+  justify-content: center;
+  /* ⭐ 세로 중앙 정렬 추가 */
   text-align: center;
   z-index: 2;
 
   /* 중앙 배치를 위해 전체 높이 지정 */
-  min-height: calc(100vh - 180px); 
+  min-height: calc(100vh - 180px);
   /* 180px는 패턴 높이에 맞춰 조정 가능 */
 }
 
@@ -71,27 +74,42 @@
   cursor: pointer;
 }
 
-.CameraBtn {
+/* 버튼들을 한 줄로 나란히 배치 */
+.btn-container {
+  display: flex;
+  justify-content: space-between; /* 양쪽 정렬 (원하면 center로 바꿔도 됨) */
+  align-items: center;
+  width: 80%;
+  max-width: 400px; /* 원하는 너비 지정 */
+  margin: 20px auto 0;
+  gap: 12px; /* 버튼 간격 */
+}
+
+/* 기본 버튼 스타일 통일 */
+.CameraBtn,
+.calendarBtn {
   display: flex;
   align-items: center;
-  gap: 6px;              /* 이미지와 텍스트 간격 */
-  margin-top: 15px;
-  margin-right: 65%;
+  gap: 6px;
   background-color: white;
   border: 1px solid #ccc;
-  padding: 8px 16px;
+  padding: 10px 16px;
   border-radius: 20px;
   cursor: pointer;
-  font-size: 14px;
+  font-size: 15px;
+  flex: 1;                 /* 버튼 너비 동일하게 */
+  justify-content: center; /* 텍스트 & 아이콘 가운데 정렬 */
+}
+
+/* 아이콘 */
+.CameraBtn img,
+.calendarBtn img {
+  width: 40px;
+  height: 40px;
 }
 
 .CameraIcon {
   width: 20px;
   height: 20px;
-}
-
-.CameraText {
-  font-size: 14px;
-  font-weight: 500;
 }
 

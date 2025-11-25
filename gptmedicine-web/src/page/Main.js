@@ -4,7 +4,7 @@ import "./Main.css";
 
 export default function Main() {
   const [input, setInput] = React.useState("");
-  const [patternHeight, setPatternHeight] = React.useState(0); 
+  const [patternHeight, setPatternHeight] = React.useState(0);
   const navigate = useNavigate();
 
   const handleSearch = () => {
@@ -25,6 +25,8 @@ export default function Main() {
         className="Main-PatternTop"
         onLoad={(e) => setPatternHeight(e.target.offsetHeight)} // ⭐ 패턴 높이 측정
       />
+      <img src="/image/Primary_Pattern.png" className="Login-Primary-PatternBottonimage" />
+
 
       {/* 콘텐츠 위치 자동 조정 */}
       <div className="MainContent">

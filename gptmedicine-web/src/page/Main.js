@@ -1,11 +1,14 @@
-import React from "react";
+import React, { use } from "react";
 import { useNavigate } from "react-router-dom";
 import "./Main.css";
 
 export default function Main() {
   const [input, setInput] = React.useState("");
   const [patternHeight, setPatternHeight] = React.useState(0);
+  const [preview, setPreview] = React.useState(null);
   const navigate = useNavigate();
+  const fileInputRef = React.useRef(null);
+
 
   const handleSearch = () => {
     if (!input.trim()) {
@@ -15,6 +18,24 @@ export default function Main() {
 
     //검색 페이지로 이동
     navigate(`/search?query=${encodeURIComponent(input)}`);
+  };
+
+  // 촬영 버튼 클릭 => 카메라 실행
+  const openCamera = () => {
+    console.log("📸 촬영 버튼 클릭됨");  // 👉 디버그용(눌리면 콘솔에 표시됨)
+    if (fileInputRef.current) {
+      fileInputRef.current.click();
+    } else {
+      console.log("❌ fileInputRef가 null임");
+    }
+  };
+  //촬영 후 파일 받아오기
+  const handleCapture = (e) => {
+    if (!e.target.files || e.target.files.length === 0) return;
+    const file = e.target.files[0];
+
+    const imageURL = URL.createObjectURL(file);
+    setPreview(imageURL);
   };
 
   return (
@@ -46,7 +67,7 @@ export default function Main() {
           <button className="VoiceButton"><img src="/image/voice.png" alt="Voice" /></button>
         </div>
         <div className="btn-container">
-          <button className="CameraBtn">
+          <button className="CameraBtn" onClick={openCamera}>
             <img src="/image/camera.png" alt="Camera" />
             <span className="CameraText">촬영</span>
           </button>
@@ -55,6 +76,23 @@ export default function Main() {
             <span className="CalendarText">일정 관리</span>
           </button>
         </div>
+
+        {/* 숨겨진 input -> 카메라 실행 */}
+         <input
+          type="file"
+          accept="image/*"
+          capture="environment"
+          ref={fileInputRef}
+          onChange={handleCapture}
+          style={{ display: "none" }}
+        />
+
+        {/* 촬영 미리보기 */}
+        {preview && (
+          <div className="PreviewBox">
+            <img src={preview} alt="preview" className="PreviewImage" />
+          </div>
+        )}
       </div>
     </div>
   );

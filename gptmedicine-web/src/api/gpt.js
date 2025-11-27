@@ -111,3 +111,65 @@ export async function askGPT(userText) {
         return "GPT 요청 중 오류가 발생했습니다.";
     }
 }
+
+/* -------------------------------------------------------
+   🔥 여기부터 OCR → 약 이름 추출용 GPT 함수 추가
+--------------------------------------------------------- */
+// OCR → 약 여러 개 추출 → 개별 분석 → 상호작용 분석
+export async function analyzeAllMedicinesFromOCR(ocrText) {
+    // 1️⃣ OCR → 약 이름 여러 개 추출
+    const extractedList = await askGPT(`
+다음은 약 봉투에서 OCR로 추출한 텍스트입니다.
+
+규칙:
+- 약 이름만 1~5개 추출
+- 줄바꿈으로 구분하여 출력
+- OCR 오류는 최대한 보정
+- 설명, 용량 등은 제거하고 이름만 출력
+
+OCR 내용:
+${ocrText}
+    `);
+
+    // 약 리스트 가공
+    const medicines = extractedList
+        .split("\n")
+        .map(v => v.trim())
+        .filter(v => v.length > 0);
+
+    // 2️⃣ 각 약에 대해 개별 분석(A 모드 유도)
+    const analysisResults = [];
+    for (const med of medicines) {
+        const res = await askGPT(`
+"${med}" 성분 분석
+주의사항 상세하게 알려줘
+상호작용도 포함해서 분석해줘
+        `);
+        analysisResults.push({
+            name: med,
+            analysis: res,
+        });
+    }
+
+    // 3️⃣ 여러 약을 함께 먹을 때의 병용 상호작용 분석
+    const combinedInteraction = await askGPT(`
+다음 약들을 환자가 동시에 복용할 예정입니다.
+
+약 목록:
+${medicines.join(", ")}
+
+출력 규칙:
+- 병용 시 위험한 조합
+- 서로 부딪히는 성분
+- 간/신장에 부담되는 조합
+- 피해야 하는 보조식품
+- 복용 간격 권장
+- 전체 종합 주의사항
+    `);
+
+    return {
+        medicines,              // 추출된 약 리스트
+        analysisResults,        // 약별 상세 분석
+        combinedInteraction,    // 여러 약 병용 시 주의사항
+    };
+}

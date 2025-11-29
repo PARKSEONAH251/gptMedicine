@@ -8,11 +8,25 @@ export default function Calendar() {
     new Date(today.getFullYear(), today.getMonth(), 1)
   );
 
-  // ⭐ 날짜 선택 상태
   const [selectedDate, setSelectedDate] = useState(null);
 
-  // ⭐ 날짜별 기록 저장
+  // 날짜별 체크 기록 저장
   const [recordData, setRecordData] = useState({});
+
+  // 복용 항목 리스트
+  const [recordItems, setRecordItems] = useState([
+    { key: "pill", label: "오늘 드셔야 되는 약 복용하셨나요?", icon: "/image/pill.png" },
+    { key: "supplement", label: "아침에 영양제 드셨나요?", icon: "/image/supplement.png" }
+  ]);
+
+  // 추가 모달
+  const [showAddModal, setShowAddModal] = useState(false);
+  const [newItemName, setNewItemName] = useState("");
+
+  // 수정 모달
+  const [showEditModal, setShowEditModal] = useState(false);
+  const [editItem, setEditItem] = useState(null);
+  const [editName, setEditName] = useState("");
 
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
@@ -25,24 +39,66 @@ export default function Calendar() {
   for (let i = 0; i < firstDay; i++) days.push(null);
   for (let i = 1; i <= lastDate; i++) days.push(i);
 
-  // 날짜 key 포맷 (2025-11-03)
+  // 날짜 key
   const formatDate = (y, m, d) => `${y}-${m + 1}-${d}`;
 
   // 체크 업데이트
-  const updateCheck = (field) => {
+  const updateCheck = (key) => {
     if (!selectedDate) return;
-
-    const key = selectedDate;
     setRecordData((prev) => ({
       ...prev,
-      [key]: {
-        ...prev[key],
-        [field]: !prev[key]?.[field],
+      [selectedDate]: {
+        ...prev[selectedDate],
+        [key]: !prev[selectedDate]?.[key],
       },
     }));
   };
 
-  // ⭐ 이전달 / 다음달 이동 함수
+  // 항목 추가
+  const addNewRecordItem = () => {
+    if (!newItemName.trim()) return;
+
+    const newKey = newItemName.replace(/\s+/g, "_");
+
+    setRecordItems((prev) => [
+      ...prev,
+      {
+        key: newKey,
+        label: `${newItemName} 복용하셨나요?`,
+        icon: "/image/pill.png",
+      },
+    ]);
+
+    setShowAddModal(false);
+    setNewItemName("");
+  };
+
+  // 항목 삭제
+  const deleteItem = (deleteKey) => {
+    setRecordItems((prev) => prev.filter((item) => item.key !== deleteKey));
+
+    setRecordData((prev) => {
+      const updated = {};
+      Object.keys(prev).forEach((date) => {
+        const { [deleteKey]: removed, ...rest } = prev[date];
+        updated[date] = rest;
+      });
+      return updated;
+    });
+  };
+
+  // 항목 수정
+  const updateRecordItem = (key, newName) => {
+    setRecordItems((prev) =>
+      prev.map((item) =>
+        item.key === key
+          ? { ...item, label: `${newName} 복용하셨나요?` }
+          : item
+      )
+    );
+  };
+
+  // 월 이동
   const prevMonth = () => {
     setCurrentMonth(new Date(year, month - 1, 1));
     setSelectedDate(null);
@@ -56,16 +112,15 @@ export default function Calendar() {
   return (
     <div className="CalContainer">
       <img src="/image/mini_pattern.png" className="Login-Primary-Patterntopimage" />
-      <img src="/image/Primary_Pattern.png" className="Login-Primary-PatternBottonimage" />
-      <button className="AddFriendButton"><img src="/image/group.png" className="AddFriend" /></button>
-      {/* 🔥 월 이동 버튼 + 제목 */}
+
+      <button className="AddFriendButton">
+        <img src="/image/group.png" className="AddFriend" />
+      </button>
+
+      {/* 월 이동 */}
       <div className="CalHeader">
         <button className="CalBtn" onClick={prevMonth}>«</button>
-
-        <h2 className="CalTitle">
-          {year}년 {month + 1}월
-        </h2>
-
+        <h2 className="CalTitle">{year}년 {month + 1}월</h2>
         <button className="CalBtn" onClick={nextMonth}>»</button>
       </div>
 
@@ -79,22 +134,18 @@ export default function Calendar() {
       {/* 날짜 */}
       <div className="CalGrid">
         {days.map((day, index) => {
+          const dateKey = day ? formatDate(year, month, day) : null;
+          const isSelected = selectedDate === dateKey;
+
           const isToday =
             day === today.getDate() &&
             month === today.getMonth() &&
             year === today.getFullYear();
 
-          const dateKey = day ? formatDate(year, month, day) : null;
-          const isSelected = selectedDate === dateKey;
-
           return (
             <div
               key={index}
-              className={`CalDay 
-                ${day ? "" : "empty"} 
-                ${isToday ? "today" : ""} 
-                ${isSelected ? "selected" : ""}
-              `}
+              className={`CalDay ${day ? "" : "empty"} ${isToday ? "today" : ""} ${isSelected ? "selected" : ""}`}
               onClick={() => day && setSelectedDate(dateKey)}
             >
               {day && <span>{day}</span>}
@@ -103,26 +154,98 @@ export default function Calendar() {
         })}
       </div>
 
-      {/* 기록 박스 → 날짜 선택 시만 표시 */}
+      {/* 기록 박스 */}
       {selectedDate && (
         <div className="RecordBox">
-          <button
-            className={`RecordItem ${recordData[selectedDate]?.pill ? "checked" : ""}`}
-            onClick={() => updateCheck("pill")}
-          >
-            <img src="/image/pill.png" alt="pill" />
-            <span>오늘 드셔야 되는 약 복용하셨나요?</span>
-            {recordData[selectedDate]?.pill && <span className="CheckMark">✓</span>}
-          </button>
+          {recordItems.map((item) => (
+            <div key={item.key} className="RecordItemWrapper">
 
-          <button
-            className={`RecordItem ${recordData[selectedDate]?.supplement ? "checked" : ""}`}
-            onClick={() => updateCheck("supplement")}
-          >
-            <img src="/image/supplement.png" alt="sup" />
-            <span>아침에 영양제 드셨나요?</span>
-            {recordData[selectedDate]?.supplement && <span className="CheckMark">✓</span>}
+              {/* 체크 버튼 */}
+              <button
+                className={`RecordItem ${recordData[selectedDate]?.[item.key] ? "checked" : ""}`}
+                onClick={() => updateCheck(item.key)}
+              >
+                <img src={item.icon} alt={item.key} />
+                <span>{item.label}</span>
+                {recordData[selectedDate]?.[item.key] && <span className="CheckMark">✓</span>}
+              </button>
+
+              {/* 오른쪽 수정 & 삭제 */}
+              <div className="RightButtons">
+                <button
+                  className="EditBtn"
+                  onClick={() => {
+                    setEditItem(item);
+                    setEditName(item.label.replace(" 복용하셨나요?", ""));
+                    setShowEditModal(true);
+                  }}
+                >
+                  ✎
+                </button>
+
+                <button className="DeleteBtn" onClick={() => deleteItem(item.key)}>
+                  ✕
+                </button>
+              </div>
+            </div>
+          ))}
+
+          {/* 추가 버튼 */}
+          <button className="AddRecordButton" onClick={() => setShowAddModal(true)}>
+            + 복용 약 추가하기
           </button>
+        </div>
+      )}
+
+      {/* 추가 모달 */}
+      {showAddModal && (
+        <div className="ModalOverlay">
+          <div className="ModalBox">
+            <h3>추가할 약 이름</h3>
+
+            <input
+              type="text"
+              className="ModalInput"
+              placeholder="예: 비타민C"
+              value={newItemName}
+              onChange={(e) => setNewItemName(e.target.value)}
+            />
+
+            <div className="ModalButtons">
+              <button className="ModalCancel" onClick={() => setShowAddModal(false)}>취소</button>
+              <button className="ModalAdd" onClick={addNewRecordItem}>추가</button>
+            </div>
+          </div>
+        </div>
+      )}
+
+      {/* 수정 모달 */}
+      {showEditModal && (
+        <div className="ModalOverlay">
+          <div className="ModalBox">
+            <h3>약 이름 수정</h3>
+
+            <input
+              type="text"
+              className="ModalInput"
+              value={editName}
+              onChange={(e) => setEditName(e.target.value)}
+            />
+
+            <div className="ModalButtons">
+              <button className="ModalCancel" onClick={() => setShowEditModal(false)}>취소</button>
+
+              <button
+                className="ModalAdd"
+                onClick={() => {
+                  updateRecordItem(editItem.key, editName);
+                  setShowEditModal(false);
+                }}
+              >
+                수정하기
+              </button>
+            </div>
+          </div>
         </div>
       )}
     </div>

@@ -1,7 +1,7 @@
 import mariadb from "mariadb";
 
 export const pool = mariadb.createPool({
-    host: "DBtest11",
+    host: "DBserver",
     port: 3306,
     user: "root",
     password: "jsp16",

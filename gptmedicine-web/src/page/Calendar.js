@@ -2,6 +2,11 @@ import React, { useState } from "react";
 import "./Calendar.css";
 
 export default function Calendar() {
+  // 친구추가 클릭 이벤트
+  const handleAddFriend = () => {
+    alert("친구 초대 기능 준비 중입니다! 😊");
+  };
+
   const today = new Date();
 
   const [currentMonth, setCurrentMonth] = useState(
@@ -113,7 +118,7 @@ export default function Calendar() {
     <div className="CalContainer">
       <img src="/image/mini_pattern.png" className="Login-Primary-Patterntopimage" />
 
-      <button className="AddFriendButton">
+      <button className="AddFriendButton" onClick={handleAddFriend}>
         <img src="/image/group.png" className="AddFriend" />
       </button>
 

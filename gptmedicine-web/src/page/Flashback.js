@@ -29,28 +29,31 @@ export default function Flashback() {
   // };
 
   return (
-    <div className="FlashBackContainer">
-      <img src="/image/pattern.png" className="pattern-image" alt="Pattern" />
-      <img src="/image/pattern1.png" className="pattern1-image" alt="Pattern1" />
-      <div className="FlashBack-content-warpper">
-        <p className="FlashBack-welcome-text">환영합니다!</p>
-        <p className="FlashBack-description-text">의료 AI 서비스 약찾고와 함께하세요.</p>
-              <div className="carousel-container">
-        {/* <button className="scroll-btn left" onClick={scrollLeft}>
+    <div className="AppWrapper">
+      <div className="FlashBackContainer">
+        <img src="/image/pattern.png" className="pattern-image" alt="Pattern" />
+        <img src="/image/pattern1.png" className="pattern1-image" alt="Pattern1" />
+        <div className="FlashBack-content-warpper">
+          <p className="FlashBack-welcome-text">환영합니다!</p>
+          <p className="FlashBack-description-text">의료 AI 서비스 약찾고와 함께하세요.</p>
+          <div className="carousel-container">
+            {/* <button className="scroll-btn left" onClick={scrollLeft}>
           <ChevronLeft size={24} />
         </button> */}
-        <div className="carousel-content" ref={scrollRef}>
-          <div className="item">
-            <img src="/image/medicalsafe_logo.png" className="logo-image" alt="MedicalSafe Logo" />
-          </div>
-          <div className="item"></div>
-        </div>
-        {/* <button className="scroll-btn right" onClick={scrollRight}>
+            <div className="carousel-content" ref={scrollRef}>
+              <div className="item">
+                <img src="/image/medicalsafe_logo.png" className="logo-image" alt="MedicalSafe Logo" />
+              </div>
+              <div className="item"></div>
+            </div>
+            {/* <button className="scroll-btn right" onClick={scrollRight}>
           <ChevronRight size={24} />
         </button> */}
-      </div>
-      </div>
-      <button className="skip-button" onClick={handleSkip}>넘어가기</button>
-    </div >
+          </div>
+        </div>
+        <button className="skip-button" onClick={handleSkip}>넘어가기</button>
+      </div >
+
+    </div>
   );
 }

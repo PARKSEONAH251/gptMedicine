@@ -8,7 +8,7 @@ import Signup from "./page/Signup";
 import SearchResult from "./page/SearchResult";
 import Calendar from "./page/Calendar";
 import Alarm from "./page/Alarm";
-import Gearing from "./page/Gearing";
+import Gearing from "./page/Onboarding";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Main from "./page/Main";

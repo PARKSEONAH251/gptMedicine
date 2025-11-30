@@ -1,13 +1,15 @@
 /* 전체 컨테이너 */
 .LoginContainer {
   width: 390px;
-  height: 100vh;
+  height: 100%;
+
   position: relative;
+  margin: 0 auto;
   display: flex;
   justify-content: center;
   align-items: center;
+
   overflow: hidden;
-  font-family: Arial, Helvetica, sans-serif;
   background: white;
 }
 
@@ -16,8 +18,8 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 60%;
-  /* 너가 원한 60% 유지 */
+  width: 55%;       /* 모바일에서도 가득 차도록 수정 */
+  max-width: 390px;  /* PC에서는 390px 기준 */
   z-index: 1;
   pointer-events: none;
 }
@@ -28,8 +30,9 @@
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 360px;
-  /* 화면 폭 고정 */
+  
+  width: 85%;
+  max-width: 390px;
   z-index: 1;
   pointer-events: none;
 }
@@ -38,6 +41,7 @@
 .Login-content {
     width: 85%;
     max-width: 330px;
+    margin-top: 30px;
     display: flex;
     flex-direction: column;
     gap: 22px;
@@ -95,4 +99,26 @@
     cursor: pointer;
     font-weight: bold;
     color: #3A1D1D;
+}
+
+/* ======================================== */
+/* 🧩 작은 휴대폰 자동 축소 */
+/* ======================================== */
+@media (max-height: 700px) {
+  .FlashBackContainer {
+    transform: scale(0.92);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 380px) {
+  .FlashBackContainer {
+    max-width: 100%;
+  }
+}
+
+@media (max-width: 330px) {
+  .FlashBackContainer {
+    transform: scale(0.88);
+  }
 }

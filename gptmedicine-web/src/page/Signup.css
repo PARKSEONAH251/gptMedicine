@@ -1,55 +1,72 @@
-/* 전체 컨테이너 */
+/* =============================== */
+/* 📌 전체 컨테이너 (모바일 390px 고정) */
+/* =============================== */
 .SignupContainer {
-  width: 360px;       /* 모바일 고정 크기 */
-  margin: 0 auto;     /* 중앙 정렬 */
-  height: 100vh;
+  width: 100%;
+  max-width: 390px;
+  min-height: 100vh;
+
   position: relative;
+  margin: 0 auto;
+
   display: flex;
   justify-content: center;
-  align-items: center;
-  overflow: hidden;
+  align-items: flex-start;
 
-  font-family: Arial, Helvetica, sans-serif;
+  background: white;
+  overflow: hidden;
 }
 
-
-/* 상단 패턴 */
+/* =============================== */
+/* 📌 상단 패턴 (왼쪽 딱 붙도록 수정) */
+/* =============================== */
 .Signup-Primary-Pattern {
-  position: fixed;
+  position: absolute;
   top: 0;
   left: 0;
-  width: 50%;
-  z-index: 1;
+  width: 55%;
+  max-width: 390px;
   pointer-events: none;
+  z-index: 1;
 }
 
-/* 하단 패턴 */
+/* =============================== */
+/* 📌 하단 패턴 */
+/* =============================== */
 .Signup-Primary-PatternBottonimage {
-  position: fixed;
+  position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 100%;
-  z-index: 1;
+
+  width: 85%;
+  max-width: 390px;
+
   pointer-events: none;
+  z-index: 1;
 }
 
-/* 회원가입 콘텐츠 박스 */
+/* =============================== */
+/* 📌 회원가입 폼 박스 */
+/* =============================== */
 .signup-content {
   width: 85%;
   max-width: 330px;
+
+  margin-top: 35%;
   display: flex;
   flex-direction: column;
-  gap: 18px;
-  z-index: 5;
+  gap: 15px;
+  text-align: left;
+  z-index: 10;
 }
 
 /* 제목 */
 .Signup-title {
-  font-size: 32px;
+  font-size: 25px;
   font-weight: 900;
   color: #111;
-  margin-bottom: 8px;
+  margin-bottom: 5px;
 }
 
 /* 라벨 */
@@ -64,7 +81,7 @@
   border: none;
   border-bottom: 1px solid #aaa;
   padding: 10px 0;
-  font-size: 16px;
+  font-size: 15px;
   background: transparent;
   outline: none;
 }
@@ -103,30 +120,53 @@
   width: 80px;
   background-color: black;
   color: white;
+
   border: none;
   border-radius: 8px;
+
   font-size: 14px;
   padding: 10px 0;
   cursor: pointer;
   font-weight: bold;
 }
 
-/* 인증 완료 메시지 */
+/* 인증 완료 표시 */
 .verified-text {
   color: #0A8A0A;
   font-weight: bold;
 }
 
-/* 회원가입 버튼 */
+/* =============================== */
+/* 📌 회원가입 버튼 */
+/* =============================== */
 .Signup-button {
   width: 100%;
+  height: 48px;
+
   background-color: black;
   color: white;
+
   border: none;
   border-radius: 10px;
-  padding: 14px 0;
+
   font-size: 18px;
   font-weight: bold;
   cursor: pointer;
-  margin-top: 10px;
+}
+
+/* =============================== */
+/* 📌 반응형 — 작은 폰 스케일 다운 */
+/* =============================== */
+@media (max-height: 700px) {
+  .SignupContainer {
+    transform: scale(0.92);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 360px) {
+  .SignupContainer {
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
 }

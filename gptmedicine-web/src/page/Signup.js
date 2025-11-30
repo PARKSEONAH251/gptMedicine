@@ -180,100 +180,104 @@ export default function Signup() {
 
   return (
     <>
-      <div id="recaptcha-container"></div>
 
-      <div className="SignupContainer">
-        <img src="/image/pattern.png" className="Signup-Primary-Pattern" />
-        <img src="/image/Primary_Pattern.png" className="Signup-Primary-PatternBottonimage" />
+      <div className="AppWrapper">
+        <div id="recaptcha-container"></div>
 
-        <div className="signup-content">
-          <p className="Signup-title">회원가입</p>
+        <div className="SignupContainer">
+          <img src="/image/pattern.png" className="Signup-Primary-Pattern" />
+          <img src="/image/Primary_Pattern.png" className="Signup-Primary-PatternBottonimage" />
 
-          {/* 이름 */}
-          <label className="Signup-label">이름</label>
-          <input
-            type="text"
-            className="Signup-input"
-            placeholder="이름을 입력하세요"
-            value={name}
-            onChange={(e) => setName(e.target.value)}
-          />
+          <div className="signup-content">
+            <p className="Signup-title">회원가입</p>
 
-          {/* 아이디 + 중복확인 */}
-          <label className="Signup-label">아이디</label>
-          <div className="username-row">
+            {/* 이름 */}
+            <label className="Signup-label">이름</label>
             <input
               type="text"
               className="Signup-input"
-              placeholder="아이디를 입력하세요"
-              value={username}
-              onChange={(e) => {
-                setUsername(e.target.value);
-                setUsernameChecked(false);  // 아이디 바뀌면 다시 검증 요구
-              }}
+              placeholder="이름을 입력하세요"
+              value={name}
+              onChange={(e) => setName(e.target.value)}
             />
-            <button className="check-btn" onClick={checkUsernameDuplicate}>
-              중복확인
-            </button>
-          </div>
 
-          {/* 비밀번호 */}
-          <label className="Signup-label">비밀번호</label>
-          <input
-            type="password"
-            className="Signup-input"
-            placeholder="비밀번호를 입력하세요"
-            value={password}
-            onChange={(e) => setPassword(e.target.value)}
-          />
+            {/* 아이디 + 중복확인 */}
+            <label className="Signup-label">아이디</label>
+            <div className="username-row">
+              <input
+                type="text"
+                className="Signup-input"
+                placeholder="아이디를 입력하세요"
+                value={username}
+                onChange={(e) => {
+                  setUsername(e.target.value);
+                  setUsernameChecked(false);  // 아이디 바뀌면 다시 검증 요구
+                }}
+              />
+              <button className="check-btn" onClick={checkUsernameDuplicate}>
+                중복확인
+              </button>
+            </div>
 
-          {/* 전화번호 */}
-          <label className="Signup-label">전화번호</label>
-          <div className="phone-row">
+            {/* 비밀번호 */}
+            <label className="Signup-label">비밀번호</label>
             <input
-              type="text"
-              className="Signup-input phone-input"
-              placeholder="전화번호를 입력하세요"
-              value={phone}
-              onChange={(e) => setPhone(e.target.value)}
+              type="password"
+              className="Signup-input"
+              placeholder="비밀번호를 입력하세요"
+              value={password}
+              onChange={(e) => setPassword(e.target.value)}
             />
-            <button
-              className="verify-btn"
-              onClick={sendVerificationCode}
-              disabled={isSending}
-            >
-              {isSending ? `재전송 ${timer}s` : "인증"}
+
+            {/* 전화번호 */}
+            <label className="Signup-label">전화번호</label>
+            <div className="phone-row">
+              <input
+                type="text"
+                className="Signup-input phone-input"
+                placeholder="전화번호를 입력하세요"
+                value={phone}
+                onChange={(e) => setPhone(e.target.value)}
+              />
+              <button
+                className="verify-btn"
+                onClick={sendVerificationCode}
+                disabled={isSending}
+              >
+                {isSending ? `재전송 ${timer}s` : "인증"}
+              </button>
+            </div>
+
+            {/* 인증번호 입력 */}
+            {typeof window !== "undefined" &&
+              window.confirmationResult &&
+              !verified && (
+                <>
+                  <label className="Signup-label">인증번호</label>
+                  <div className="phone-row">
+                    <input
+                      type="text"
+                      className="Signup-input phone-input"
+                      placeholder="인증번호 입력"
+                      value={verifyCode}
+                      onChange={(e) => setVerifyCode(e.target.value)}
+                    />
+                    <button className="verify-btn" onClick={checkVerificationCode}>
+                      확인
+                    </button>
+                  </div>
+                </>
+              )}
+
+            {verified && <p className="verified-text">✔ 인증 완료</p>}
+
+            <button className="Signup-button" onClick={handleSignup}>
+              회원가입
             </button>
           </div>
-
-          {/* 인증번호 입력 */}
-          {typeof window !== "undefined" &&
-            window.confirmationResult &&
-            !verified && (
-              <>
-                <label className="Signup-label">인증번호</label>
-                <div className="phone-row">
-                  <input
-                    type="text"
-                    className="Signup-input phone-input"
-                    placeholder="인증번호 입력"
-                    value={verifyCode}
-                    onChange={(e) => setVerifyCode(e.target.value)}
-                  />
-                  <button className="verify-btn" onClick={checkVerificationCode}>
-                    확인
-                  </button>
-                </div>
-              </>
-            )}
-
-          {verified && <p className="verified-text">✔ 인증 완료</p>}
-
-          <button className="Signup-button" onClick={handleSignup}>
-            회원가입
-          </button>
         </div>
       </div>
     </>
+
   );
 }

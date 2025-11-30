@@ -28,10 +28,12 @@
 /* 상단 패턴 - 항상 왼쪽에 딱 붙음, 390px 기준 비율 유지 */
 .FlashBackContainer .pattern-image {
   position: absolute;
-  top: 0;
-  left: 0;
-  width: 60%;       /* 모바일에서도 가득 차도록 수정 */
-  max-width: 390px;  /* PC에서는 390px 기준 */
+  bottom: 0;
+  left: 50%;
+  transform: translateX(-50%);
+  
+  width: 85%;
+  max-width: 390px;
   z-index: 1;
   pointer-events: none;
 }
@@ -43,7 +45,7 @@
   left: 50%;
   transform: translateX(-50%);
   
-  width: 95%;
+  width: 85%;
   max-width: 390px;
   z-index: 1;
   pointer-events: none;

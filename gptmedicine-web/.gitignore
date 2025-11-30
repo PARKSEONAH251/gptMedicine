@@ -4,6 +4,7 @@
 /node_modules
 /.pnp
 /.env
+/.KakaoAuth.js
 .pnp.js
 
 # testing

@@ -8,7 +8,8 @@ import Signup from "./page/Signup";
 import SearchResult from "./page/SearchResult";
 import Calendar from "./page/Calendar";
 import Alarm from "./page/Alarm";
-import Gearing from "./page/Onboarding";
+import Onboarding from "./page/Onboarding";
+import KakaoAuth from "./components/KakaoAuth";
 
 import ProtectedRoute from "./components/ProtectedRoute";
 import Main from "./page/Main";
@@ -23,8 +24,9 @@ function App() {
         <Route path="/signup" element={<Signup />} />
         <Route path="/search" element={<SearchResult />} />
         <Route path="/alarm" element={<Alarm/>}/>
-        <Route path="/gearing" element={<Gearing/>}/> 
-        
+        <Route path="/onboarding" element={<Onboarding/>}/> 
+        <Route path="/kakao-auth" element={<KakaoAuth />} />
+``
         {/* 일정 관리 페이지 */}
         <Route path="/calendar" element={<Calendar />} />
 

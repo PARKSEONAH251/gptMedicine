@@ -3,12 +3,7 @@ import { useNavigate } from "react-router-dom";
 import "./Onboarding.css";
 
 export default function Onboarding() {
-  const navigate = useNavigate();
-
-  const handleAgree = () => {
-    localStorage.setItem("userAgreed", "true");
-    navigate("/kakao-auth");
-  };
+  
 
   return (
     <div className="OnboardContainer">
@@ -25,7 +20,7 @@ export default function Onboarding() {
         alt="illustration"
       />
 
-      <button className="StartBtn" onClick={handleAgree}>
+      <button className="StartBtn">
         동의하고 시작하기
       </button>
     </div>

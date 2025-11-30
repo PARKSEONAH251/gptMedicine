@@ -1,0 +1,64 @@
+.KakaoAuthContainer {
+
+  padding: 40px 24px;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  justify-content: flex-start;
+  font-family: Pretendard, sans-serif;
+  background-color: #ffffff;
+  position: relative;
+}
+
+/* 상단 패턴 이미지 */
+.KakaoAuthPattern {
+  width: 100%;
+  position: absolute;
+  top: 0;
+  left: 0;
+}
+
+/* 제목 */
+.KakaoAuthTitle {
+  margin-top: 140px;
+  font-size: 22px;
+  font-weight: 600;
+  color: #1a1a1a;
+  text-align: center;
+}
+
+/* 안내 문구 */
+.KakaoAuthDesc {
+  margin-top: 12px;
+  font-size: 15px;
+  color: #4a4a4a;
+  text-align: center;
+  line-height: 1.5;
+}
+
+/* 카카오 버튼 */
+/* .KakaoLoginBtn {
+  margin-top: 40px;
+  width: 85%;
+  background-color: #FEE500;
+  border: none;
+  padding: 16px;
+  font-size: 16px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
+  color: #3A1D1D;
+  box-shadow: 0px 2px 4px rgba(0,0,0,0.15);
+} */
+
+.KakaoLoginBtn:active {
+  background-color: #f0d900;
+}
+
+/* 하단 설명 */
+.KakaoSmallText {
+  margin-top: 18px;
+  font-size: 13px;
+  text-align: center;
+  color: #888;
+}

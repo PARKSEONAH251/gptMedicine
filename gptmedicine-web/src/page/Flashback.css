@@ -1,5 +1,5 @@
 .AppWrapper {
-  width: 100%;
+  width: 390px;
   height: 100vh;
   background: white;
 
@@ -12,7 +12,7 @@
 
 /* 모바일 앱 화면처럼 390px 고정 프레임 */
 .FlashBackContainer {
-  max-width: 390px;   
+  width: 390px;
   height: 100%;
 
   position: relative;
@@ -43,7 +43,7 @@
   left: 50%;
   transform: translateX(-50%);
   
-  width: 100%;
+  width: 95%;
   max-width: 390px;
   z-index: 1;
   pointer-events: none;
@@ -53,20 +53,20 @@
 .FlashBack-content-warpper {
   width: 85%;
   max-width: 320px;
+  margin-top: 15%;
   z-index: 20;
   text-align: center;
 }
 
 .FlashBack-welcome-text {
-  font-size: 26px;
+  font-size: 23px;
   font-weight: bold;
-  margin-bottom: 12px;
+  margin-bottom: 10px;
   color: #333;
 }
 
 .FlashBack-description-text {
   font-size: 18px;
-  margin-top: -6px;
   color: #555;
 }
 
@@ -113,7 +113,7 @@
 /* 넘어가기 버튼 */
 .FlashBackContainer .skip-button {
   position: absolute;
-  bottom: 17%;
+  bottom: 13%;
   right: 20px;
   background-color: black;
   color: white;

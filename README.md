@@ -1,5 +1,5 @@
 MySQL 기반 서버입니다. <br>
-도커 컨테이너 파일은 구글 드라이브 <br> 
+도커 이미지 파일은 구글 드라이브 <br> 
 API : https://drive.google.com/file/d/1rXH63tNnzdqXSuGS1O2_dki0FXz3UpLJ/view?usp=sharing <br>
 DB : https://drive.google.com/file/d/1MHQQjxXMtuvq2DWiHulGs3Fn7zb6Yk-O/view?usp=drive_link <br>
 Nginx : https://drive.google.com/file/d/11N1mkI-PlCbSTnScgNo0RuRpfq6us9rF/view?usp=sharing <br>
@@ -28,7 +28,7 @@ docker network create <네트워크 그룹 이름> <br><br>
 
 docker network connect <네트워크 그룹 이름> <DB 컨테이너 이름>  <br>
 docker network connect <네트워크 그룹 이름> <API 컨테이너 이름>  <br>
-docker network connect <네트워크 그룹 이름> Nginx 컨테이너 이름>  <br><br>
+docker network connect <네트워크 그룹 이름> <Nginx 컨테이너 이름>  <br><br>
 
 DB에 테이블이 없을시 아래 생성문을 사용합니다.  <br>
 

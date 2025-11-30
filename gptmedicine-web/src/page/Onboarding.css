@@ -5,7 +5,7 @@
     align-items: center;
     justify-content: flex-start;
     margin-top: 35%;
-    padding-top: 60px;
+    padding-top: 50px;
     font-family: Pretendard, sans-serif;
     position: relative;
 }
@@ -27,6 +27,10 @@
     left: 0;
 }
 
+.Onboarding-PatternTop{
+    width: 70%;
+    margin-top: -40%;
+}
 .AppTag {
     background: #000;
     color: #fff;

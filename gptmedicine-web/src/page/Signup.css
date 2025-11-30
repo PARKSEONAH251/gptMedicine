@@ -1,15 +1,17 @@
 /* 전체 컨테이너 */
 .SignupContainer {
+  width: 360px;       /* 모바일 고정 크기 */
+  margin: 0 auto;     /* 중앙 정렬 */
+  height: 100vh;
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
-  height: 100vh;
-  background-color: #f5f5f5;
   overflow: hidden;
-  padding: 20px;
+
   font-family: Arial, Helvetica, sans-serif;
 }
+
 
 /* 상단 패턴 */
 .Signup-Primary-Pattern {

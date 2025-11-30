@@ -160,7 +160,7 @@ export default function Calendar() {
         <img src="/image/group.png" className="AddFriend" />
       </button>
 
-      {/* 🔥 친구 목록 */}
+      {/* 🔥 친구 목록
       <div className="FriendListSection">
         <h3 className="FriendListTitle">🤝 함께 공유 중인 친구</h3>
 
@@ -176,7 +176,7 @@ export default function Calendar() {
             </div>
           ))
         )}
-      </div>
+      </div> */}
 
       {/* 월 이동 */}
       <div className="CalHeader">

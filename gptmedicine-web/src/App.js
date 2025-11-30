@@ -16,31 +16,34 @@ import Main from "./page/Main";
 
 function App() {
   return (
-    <Router>
-      <Routes>
-        <Route path="/" element={<Flashback />} />
-        <Route path="/loginjoin" element={<LoginJoin />} />
-        <Route path="/login" element={<Login />} />
-        <Route path="/signup" element={<Signup />} />
-        <Route path="/search" element={<SearchResult />} />
-        <Route path="/alarm" element={<Alarm/>}/>
-        <Route path="/onboarding" element={<Onboarding/>}/> 
-        <Route path="/kakao-auth" element={<KakaoAuth />} />
-``
-        {/* 일정 관리 페이지 */}
-        <Route path="/calendar" element={<Calendar />} />
+    <div className="AppWrapper">
+      <Router>
+        <Routes>
+          <Route path="/" element={<Flashback />} />
+          <Route path="/loginjoin" element={<LoginJoin />} />
+          <Route path="/login" element={<Login />} />
+          <Route path="/signup" element={<Signup />} />
+          <Route path="/search" element={<SearchResult />} />
+          <Route path="/alarm" element={<Alarm />} />
+          <Route path="/onboarding" element={<Onboarding />} />
+          <Route path="/kakao-auth" element={<KakaoAuth />} />
+          ``
+          {/* 일정 관리 페이지 */}
+          <Route path="/calendar" element={<Calendar />} />
 
-        {/* 로그인 보호 페이지 */}
-        <Route
-          path="/main"
-          element={
-            <ProtectedRoute>
-              <Main />
-            </ProtectedRoute>
-          }
-        />
-      </Routes>
-    </Router>
+          {/* 로그인 보호 페이지 */}
+          <Route
+            path="/main"
+            element={
+              <ProtectedRoute>
+                <Main />
+              </ProtectedRoute>
+            }
+          />
+        </Routes>
+      </Router>
+
+    </div>
   );
 }
 

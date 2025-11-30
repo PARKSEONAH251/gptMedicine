@@ -16,6 +16,7 @@ export default function Login() {
         navigate("/kakao-auth");
     };
 
+
     const handleLogin = async () => {
         if (!username || !password) {
             alert("아이디와 비밀번호를 입력하세요.");
@@ -86,7 +87,7 @@ export default function Login() {
                     로그인
                 </button>
                 <button className="KakaoLoginBtn" onClick={handleAgree}>
-                    카카오 간편로그인
+                    카카오 간편 로그인
                 </button>
             </div>
         </div>

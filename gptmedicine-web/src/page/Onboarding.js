@@ -4,6 +4,8 @@ import "./Onboarding.css";
 
 export default function Onboarding() {
   const navigate = useNavigate();
+  const [patternHeight, setPatternHeight] = React.useState(0);
+
 
   // 🌟 STEP 3: URL에서 invite 파라미터 읽기
   useEffect(() => {
@@ -27,7 +29,7 @@ export default function Onboarding() {
 
     const inviterId = user.id;
 
-    const inviteLink = `http://localhost:3001/onboarding?invite=${inviterId}`;
+    const inviteLink = `http://localhost:3000/onboarding?invite=${inviterId}`;
 
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init("72d488b55a12a31ca0abd23ce5fe1522");
@@ -49,7 +51,11 @@ export default function Onboarding() {
   return (
     <div className="OnboardContainer">
       <div className="TopWave">
-        <img src="/image/pattern.png" className="Onboard-Primary-Patterntopimage" />
+        <img
+          src="/image/pattern.png"
+          className="Onboarding-PatternTop"
+          onLoad={(e) => setPatternHeight(e.target.offsetHeight)} // ⭐ 패턴 높이 측정
+        />
       </div>
 
       <p className="AppTag">공유전용앱</p>

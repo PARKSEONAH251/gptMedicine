@@ -1,38 +1,44 @@
+/* 모바일 앱 화면처럼 390px 고정 프레임 */
 .FlashBackContainer {
-  width: 390px;
+  width: 100%;
+  max-width: 390px;     /* 모바일 화면 폭 고정 */
   height: 100vh;
+  margin: 0 auto;       /* 어떤 기기든 가운데 정렬 */
+  
   position: relative;
   display: flex;
   justify-content: center;
   align-items: center;
   overflow: hidden;
+
   font-family: Arial, Helvetica, sans-serif;
   background: white;
-  /* 패턴과 대비 */
 }
 
+/* 상단 패턴 - 항상 왼쪽에 딱 붙음, 390px 기준 비율 유지 */
 .FlashBackContainer .pattern-image {
   position: absolute;
   top: 0;
   left: 0;
-  width: 60%;
-  /* 너가 원한 60% 유지 */
+  width: 60%;          /* 반응형 비율 유지 */
+  max-width: 390px;    /* 프레임 넘어가지 않게 */
   z-index: 1;
   pointer-events: none;
 }
 
-
+/* 하단 패턴 - 항상 중앙에 정확히 배치 */
 .FlashBackContainer .pattern1-image {
   position: absolute;
   bottom: 0;
   left: 50%;
   transform: translateX(-50%);
-  width: 360px;
-  /* 화면 폭 고정 */
+  width: 100%;
+  max-width: 390px;
   z-index: 1;
   pointer-events: none;
 }
 
+/* 내용물 영역 */
 .FlashBack-content-warpper {
   width: 80%;
   max-width: 300px;
@@ -62,6 +68,7 @@
   align-items: center;
 }
 
+/* 좌우 스크롤 버튼 */
 .FlashBackContainer .scroll-btn {
   position: absolute;
   top: 50%;
@@ -80,19 +87,20 @@
   transition: all 0.2s ease;
 }
 
+.FlashBackContainer .scroll-btn.left {
+  left: 20px;
+}
+
+.FlashBackContainer .scroll-btn.right {
+  right: 20px;
+}
+
 .FlashBackContainer .scroll-btn:hover {
   background-color: rgba(0, 0, 0, 0.8);
   transform: translateY(-50%) scale(1.1);
 }
 
-.FlashBackContainer .scroll-btn.left {
-  left: 30px;
-}
-
-.FlashBackContainer .scroll-btn.right {
-  right: 30px;
-}
-
+/* 넘어가기 버튼 */
 .FlashBackContainer .skip-button {
   position: absolute;
   bottom: 16%;
@@ -112,4 +120,21 @@
 .FlashBackContainer .skip-button:hover {
   background-color: #333;
   transform: scale(1.05);
+}
+
+
+/* ========================================= */
+/* 🧩 반응형: 화면이 너무 좁을 때 자동 스케일링 */
+/* ========================================= */
+@media (max-width: 420px) {
+  .FlashBackContainer {
+    transform: scale(0.95);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 360px) {
+  .FlashBackContainer {
+    transform: scale(0.9);
+  }
 }

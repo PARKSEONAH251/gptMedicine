@@ -53,8 +53,6 @@
 .FlashBack-content-warpper {
   width: 85%;
   max-width: 320px;
-  margin-top: 40px;
-
   z-index: 20;
   text-align: center;
 }
@@ -78,6 +76,7 @@
   justify-content: center;
   align-items: center;
 }
+
 
 /* 좌우 스크롤 버튼 */
 .FlashBackContainer .scroll-btn {
@@ -114,7 +113,7 @@
 /* 넘어가기 버튼 */
 .FlashBackContainer .skip-button {
   position: absolute;
-  bottom: 16%;
+  bottom: 17%;
   right: 20px;
   background-color: black;
   color: white;

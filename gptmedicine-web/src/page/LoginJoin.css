@@ -17,7 +17,7 @@
   position: absolute;
   top: 0;
   left: 0;
-  width: 60%;       /* 모바일에서도 가득 차도록 수정 */
+  width: 55%;       /* 모바일에서도 가득 차도록 수정 */
   max-width: 390px;  /* PC에서는 390px 기준 */
   z-index: 1;
   pointer-events: none;
@@ -30,7 +30,7 @@
   left: 50%;
   transform: translateX(-50%);
   
-  width: 95%;
+  width: 85%;
   max-width: 390px;
   z-index: 1;
   pointer-events: none;
@@ -38,8 +38,8 @@
 
 /* ⭐ 중앙 콘텐츠 전체 묶음 */
 .Login-content-wrapper {
-    width: 80%;
-    max-width: 270px;
+    width: 60%;
+    max-width: 260px;
     text-align: center;
     margin-top: 10%;
     z-index: 10;
@@ -50,7 +50,7 @@
 
 /* 제목 */
 .Login-welcome-text {
-    font-size: 25px;
+    font-size: 23px;
     font-weight: bold;
     margin-bottom: 12px;
     color: #333;
@@ -58,7 +58,7 @@
 
 /* 설명 */
 .Login-description-text {
-    font-size: 15px;
+    font-size: 13px;
     margin-top: -6px;
     color: #555;
 }
@@ -66,6 +66,7 @@
 /* 로고 묶음 */
 .Login-item {
     width: 100%;
+    margin-top: -20px;
     display: flex;
     justify-content: center;
 }
@@ -80,6 +81,7 @@
 .button-group {
     display: flex;
     flex-direction: column;
+     margin-top: -20px;
     gap: 12px;
 }
 

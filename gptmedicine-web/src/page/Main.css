@@ -1,25 +1,19 @@
 .MainContainer {
   width: 100%;
-  max-width: 390px;
-  min-height: 100vh;
-
+  height: 100vh;
+  background-color: #ffffff;
   position: relative;
-  margin: 0 auto;
-
-  display: flex;
-  justify-content: center;
-  align-items: flex-start;
-
-  background: white;
-  overflow: hidden;
+  padding: 0;
+  overflow-x: hidden;
 }
 
 .Main-PatternTop {
   position: absolute;
   top: 0;
   left: 0;
-  width: 55%;
-  max-width: 390px;
+  width: 70%;
+  /* 중요: 50% → 100% */
+  height: auto;
   pointer-events: none;
   z-index: 1;
 }
@@ -30,7 +24,6 @@
   display: flex;
   flex-direction: column;
   align-items: center;
-  margin-top: 10%;
   /* 가로 중앙 */
   justify-content: center;
   /* ⭐ 세로 중앙 정렬 추가 */
@@ -77,6 +70,7 @@
 .VoiceButton {
   border: none;
   background: none;
+  font-size: 20px;
   cursor: pointer;
 }
 
@@ -131,19 +125,37 @@
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
 }
 
-/* =============================== */
-/* 📌 반응형 — 작은 폰 스케일 다운 */
-/* =============================== */
-@media (max-height: 700px) {
-  .MainContainer {
-    transform: scale(0.92);
-    transform-origin: top center;
-  }
+/* 마이페이지 네비게이션 버튼 */
+.mypage-nav-button {
+  position: fixed;
+  top: 20px;
+  right: 20px;
+  width: 50px;
+  height: 50px;
+  border-radius: 50%;
+  background-color: #000000;
+  border: none;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  box-shadow: 0 4px 12px rgba(0, 0, 0, 0.3);
+  z-index: 1000;
+  transition: all 0.2s;
 }
 
-@media (max-width: 360px) {
-  .MainContainer {
-    transform: scale(0.9);
-    transform-origin: top center;
-  }
+.mypage-nav-button:hover {
+  background-color: #333333;
+  transform: scale(1.05);
+}
+
+.mypage-nav-button:active {
+  background-color: #000000;
+  transform: scale(0.95);
+}
+
+.mypage-nav-button img {
+  width: 24px;
+  height: 24px;
+  filter: brightness(0) invert(1); /* 이미지를 하얀색으로 */
 }

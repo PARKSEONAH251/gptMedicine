@@ -38,6 +38,11 @@ export default function Main() {
     setPreview(imageURL);
   };
 
+  // 마이페이지 이동
+  const handleMyPage = () => {
+    navigate('/MyPage');
+  };
+
   return (
     <div className="MainContainer">
       {/* 패턴 이미지 + 높이 읽기 */}
@@ -46,6 +51,12 @@ export default function Main() {
         className="Main-PatternTop"
         onLoad={(e) => setPatternHeight(e.target.offsetHeight)} // ⭐ 패턴 높이 측정
       />
+
+      {/* 마이페이지 버튼 */}
+      <button className="mypage-nav-button" onClick={handleMyPage}>
+        <img src="/image/user.png" alt="MyPage" />
+      </button>
+
       {/* <button className="more"><img src="/image/more.png" alt="More" /></button> */}
       <img src="/image/Primary_Pattern.png" className="Login-Primary-PatternBottonimage" />
 

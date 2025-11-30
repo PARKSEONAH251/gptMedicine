@@ -16,7 +16,7 @@ export default function KakaoAuth() {
   // ⭐ 카카오 로그인 기능
   const handleKakaoLogin = () => {
     window.Kakao.Auth.login({
-      scope: "profile_nickname, account_email",
+      scope: "profile_nickname, profile_image", // 요청 권한
       success: function (authObj) {
         
         // 사용자 정보 요청
@@ -36,7 +36,7 @@ export default function KakaoAuth() {
             connectWithInviter(res.id);
 
             // 로그인 후 이동 (필요에 따라 /calendar로 변경 가능)
-            navigate("/calendar");
+            navigate("/main");
           },
 
           fail: function (err) {

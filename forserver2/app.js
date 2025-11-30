@@ -8,7 +8,6 @@ import familyRoutes from "./routes/family.js";
 
 const app = express();
 
-app.use(cors());
 app.use(express.json());
 
 // API 라우팅

@@ -1,16 +1,18 @@
 /* 전체 컨테이너 */
 .LoginContainer {
-  width: 390px;
-  height: 100%;
+  width: 100%;
+  max-width: 390px;
+  min-height: 100vh;
 
   position: relative;
   margin: 0 auto;
+
   display: flex;
   justify-content: center;
-  align-items: center;
+  align-items: flex-start;
 
-  overflow: hidden;
   background: white;
+  overflow: hidden;
 }
 
 /* 상단 패턴 이미지 */
@@ -34,24 +36,23 @@
   width: 85%;
   max-width: 390px;
   z-index: 1;
-  pointer-events: none;
+  /* pointer-events: none; */
 }
 
 /* 중앙 콘텐츠 */
 .Login-content {
-    width: 85%;
-    max-width: 330px;
-    margin-top: 30px;
-    display: flex;
-    flex-direction: column;
-    gap: 22px;
-    text-align: left;
-    z-index: 5;
+  width: 85%;
+  max-width: 330px;
+  margin-top: 45%; /* 패턴 아래에 자연스럽게 위치 */
+  display: flex;
+  flex-direction: column;
+  gap: 22px;
+  z-index: 5;
 }
 
 /* 로그인 타이틀 */
 .Login-title {
-    font-size: 36px;
+    font-size: 25px;
     font-weight: 900;
     margin-bottom: 10px;
     color: #000;
@@ -69,37 +70,44 @@
     border: none;
     border-bottom: 1px solid #aaa;
     padding: 10px 0;
-    font-size: 16px;
+    font-size: 15px;
     background: transparent;
     outline: none;
 }
 
 /* 로그인 버튼 */
 .Login-button {
-    width: 100%;
-    background-color: black;
-    color: white;
-    font-size: 18px;
-    padding: 14px 0;
-    border: none;
-    border-radius: 10px;
-    cursor: pointer;
-    font-weight: bold;
-    margin-top: 10px;
+ width: 100%;
+ height: 48px;
+
+  background-color: black;
+  color: white;
+
+  border: none;
+  border-radius: 10px;
+
+  font-size: 18px;
+  font-weight: bold;
+  cursor: pointer;
 }
 
 /* 카카오 버튼 */
 .KakaoLoginBtn {
     width: 100%;
+    height: 48px;
+
     background-color: #FEE500;
+    color: #3A1D1D;
+
     border: none;
-    padding: 14px 0;
-    font-size: 18px;
     border-radius: 10px;
+
+    font-size: 18px;
     cursor: pointer;
     font-weight: bold;
-    color: #3A1D1D;
-}
+  }
+
+    
 
 /* =============================== */
 /* 📌 반응형 — 작은 폰 스케일 다운 */

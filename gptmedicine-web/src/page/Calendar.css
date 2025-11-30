@@ -217,13 +217,12 @@
 
 /* =============================== */
 /* 모달 */
-/* ==
-============================= */
+/* ============================== */
 .ModalOverlay {
   position: fixed;
   top: 0;
   left: 0;
-  width: 100%;
+  width: 100vw;
   height: 100%;
   background: rgba(0, 0, 0, 0.4);
   display: flex;
@@ -263,4 +262,52 @@
 .ModalAdd {
   background: #4caf50;
   color: white;
+}
+
+/* 🔥 친구 목록 박스 */
+.FriendListSection {
+  width: 90%;
+  margin: 0 auto 16px auto;
+  padding: 12px;
+  background: #f5f5f5;
+  border-radius: 12px;
+  font-family: Pretendard;
+}
+
+/* 제목 */
+.FriendListTitle {
+  font-size: 15px;
+  font-weight: 600;
+  margin-bottom: 8px;
+}
+
+/* 친구 없음 문구 */
+.FriendListEmpty {
+  font-size: 14px;
+  color: #777;
+}
+
+/* 친구 한 명 */
+.FriendItem {
+  display: flex;
+  align-items: center;
+  padding: 6px 0;
+  border-bottom: 1px solid #e4e4e4;
+}
+
+.FriendItem:last-child {
+  border-bottom: none;
+}
+
+/* 기본 프로필 이미지 */
+.FriendAvatar {
+  width: 28px;
+  height: 28px;
+  border-radius: 50%;
+  margin-right: 10px;
+}
+
+/* 친구 이름 */
+.FriendName {
+  font-size: 15px;
 }

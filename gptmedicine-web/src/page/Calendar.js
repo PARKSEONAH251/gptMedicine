@@ -34,18 +34,29 @@ export default function Calendar() {
     },
   ]);
 
-  // 추가 모달 입력값
+  // 모달 입력값
   const [showAddModal, setShowAddModal] = useState(false);
   const [newItemName, setNewItemName] = useState("");
   const [newItemStartDate, setNewItemStartDate] = useState("");
   const [newItemEndDate, setNewItemEndDate] = useState("");
 
-  // 수정 모달 입력값
   const [showEditModal, setShowEditModal] = useState(false);
   const [editItem, setEditItem] = useState(null);
   const [editName, setEditName] = useState("");
   const [editStartDate, setEditStartDate] = useState("");
   const [editEndDate, setEditEndDate] = useState("");
+
+  // ⭐ 현재 로그인한 사용자
+  const currentUser = JSON.parse(localStorage.getItem("user")) || null;
+
+  // ⭐ 친구 목록 DB
+  const friendsDB = JSON.parse(localStorage.getItem("friends")) || {};
+
+  // ⭐ 전체 사용자 DB
+  const usersDB = JSON.parse(localStorage.getItem("users")) || {};
+
+  // ⭐ 내 친구 목록 ID 배열
+  const myFriends = currentUser ? (friendsDB[currentUser.id] || []) : [];
 
   const year = currentMonth.getFullYear();
   const month = currentMonth.getMonth();
@@ -58,7 +69,7 @@ export default function Calendar() {
   for (let i = 0; i < firstDay; i++) days.push(null);
   for (let i = 1; i <= lastDate; i++) days.push(i);
 
-  // 날짜 Key generator
+  // 날짜 key 생성
   const formatDate = (y, m, d) => `${y}-${m + 1}-${d}`;
 
   // 체크 토글
@@ -74,7 +85,7 @@ export default function Calendar() {
     }));
   };
 
-  // 약 추가하기
+  // 약 추가
   const addNewRecordItem = () => {
     if (!newItemName.trim()) return alert("약 이름을 입력해주세요.");
     if (!newItemStartDate) return alert("복용 시작일을 선택해주세요.");
@@ -99,7 +110,7 @@ export default function Calendar() {
     setNewItemEndDate("");
   };
 
-  // 약 삭제하기
+  // 약 삭제
   const deleteItem = (deleteKey) => {
     setRecordItems((prev) => prev.filter((item) => item.key !== deleteKey));
 
@@ -113,7 +124,7 @@ export default function Calendar() {
     });
   };
 
-  // 약 수정하기
+  // 약 수정
   const updateRecordItem = (key, newName, newStartDate, newEndDate) => {
     setRecordItems((prev) =>
       prev.map((item) =>
@@ -144,9 +155,28 @@ export default function Calendar() {
     <div className="CalContainer">
       <img src="/image/mini_pattern.png" className="Login-Primary-Patterntopimage" />
 
+      {/* 🔥 친구 초대 버튼 → Onboarding 이동 */}
       <button className="AddFriendButton" onClick={() => navigate("/onboarding")}>
         <img src="/image/group.png" className="AddFriend" />
       </button>
+
+      {/* 🔥 친구 목록 */}
+      <div className="FriendListSection">
+        <h3 className="FriendListTitle">🤝 함께 공유 중인 친구</h3>
+
+        {myFriends.length === 0 ? (
+          <p className="FriendListEmpty">아직 공유된 친구가 없습니다.</p>
+        ) : (
+          myFriends.map((fid) => (
+            <div className="FriendItem" key={fid}>
+              <img src="/image/profile_default.png" className="FriendAvatar" />
+              <span className="FriendName">
+                {usersDB[fid]?.nickname || "알 수 없음"}
+              </span>
+            </div>
+          ))
+        )}
+      </div>
 
       {/* 월 이동 */}
       <div className="CalHeader">
@@ -162,7 +192,7 @@ export default function Calendar() {
         ))}
       </div>
 
-      {/* 날짜 */}
+      {/* 날짜 표시 */}
       <div className="CalGrid">
         {days.map((day, index) => {
           const dateKey = day ? formatDate(year, month, day) : null;
@@ -198,7 +228,6 @@ export default function Calendar() {
                 <img src={item.icon} alt={item.key} />
                 <span>{item.label}</span>
 
-                {/* 기간 표시 */}
                 {(item.startDate || item.endDate) && (
                   <span className="EndDateLabel">
                     {item.startDate} ~ {item.endDate}

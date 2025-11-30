@@ -1,12 +1,14 @@
 MySQL 기반 서버입니다. <br>
 도커 컨테이너 파일은 구글 드라이브 <br> 
-API : https://drive.google.com/file/d/1iQr7vJXAQ9vD4s0wmwm013UvWJEKCIsE/view?usp=drive_link <br>
+API : https://drive.google.com/file/d/1rXH63tNnzdqXSuGS1O2_dki0FXz3UpLJ/view?usp=sharing <br>
 DB : https://drive.google.com/file/d/1MHQQjxXMtuvq2DWiHulGs3Fn7zb6Yk-O/view?usp=drive_link <br>
+Nginx : https://drive.google.com/file/d/11N1mkI-PlCbSTnScgNo0RuRpfq6us9rF/view?usp=sharing <br>
 에서 찾을 수 있습니다. <br><br>
 
-포트는 각각 
-API : 2080:3000, 336:80 <br>
+포트는 각각 <br>
+API : 2080:3000 <br>
 DB : 3306:3306으로 설정되어 있으며 <br>
+Nginx : 404:80 <br>
 
 컨테이너 실행후 각각 <br>
 API 컨테이너 <br>
@@ -25,7 +27,8 @@ service MariaDB start <br><br>
 docker network create <네트워크 그룹 이름> <br><br>
 
 docker network connect <네트워크 그룹 이름> <DB 컨테이너 이름>  <br>
-docker network connect <네트워크 그룹 이름> <API 컨테이너 이름>  <br><br>
+docker network connect <네트워크 그룹 이름> <API 컨테이너 이름>  <br>
+docker network connect <네트워크 그룹 이름> Nginx 컨테이너 이름>  <br><br>
 
 DB에 테이블이 없을시 아래 생성문을 사용합니다.  <br>
 

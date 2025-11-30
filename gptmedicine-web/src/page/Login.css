@@ -101,24 +101,19 @@
     color: #3A1D1D;
 }
 
-/* ======================================== */
-/* 🧩 작은 휴대폰 자동 축소 */
-/* ======================================== */
+/* =============================== */
+/* 📌 반응형 — 작은 폰 스케일 다운 */
+/* =============================== */
 @media (max-height: 700px) {
-  .FlashBackContainer {
+  .LoginContainer {
     transform: scale(0.92);
     transform-origin: top center;
   }
 }
 
-@media (max-width: 380px) {
-  .FlashBackContainer {
-    max-width: 100%;
-  }
-}
-
-@media (max-width: 330px) {
-  .FlashBackContainer {
-    transform: scale(0.88);
+@media (max-width: 360px) {
+  .LoginContainer {
+    transform: scale(0.9);
+    transform-origin: top center;
   }
 }

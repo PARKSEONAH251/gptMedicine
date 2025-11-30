@@ -130,3 +130,20 @@
   border-radius: 12px;
   box-shadow: 0 3px 12px rgba(0, 0, 0, 0.2);
 }
+
+/* =============================== */
+/* 📌 반응형 — 작은 폰 스케일 다운 */
+/* =============================== */
+@media (max-height: 700px) {
+  .MainContainer {
+    transform: scale(0.92);
+    transform-origin: top center;
+  }
+}
+
+@media (max-width: 360px) {
+  .MainContainer {
+    transform: scale(0.9);
+    transform-origin: top center;
+  }
+}

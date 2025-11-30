@@ -1,11 +1,10 @@
 import React, { useState } from "react";
+import {useNavigate} from "react-router-dom";
 import "./Calendar.css";
 
 export default function Calendar() {
-  // 친구추가 클릭 이벤트
-  const handleAddFriend = () => {
-    alert("친구 초대 기능 준비 중입니다! 😊");
-  };
+  //페이지 이동
+  const navigate = useNavigate();
 
   const today = new Date();
 
@@ -118,7 +117,7 @@ export default function Calendar() {
     <div className="CalContainer">
       <img src="/image/mini_pattern.png" className="Login-Primary-Patterntopimage" />
 
-      <button className="AddFriendButton" onClick={handleAddFriend}>
+      <button className="AddFriendButton" onClick={() => navigate("/gearing")}>
         <img src="/image/group.png" className="AddFriend" />
       </button>
 
@@ -199,6 +198,7 @@ export default function Calendar() {
           <button className="AddRecordButton" onClick={() => setShowAddModal(true)}>
             + 복용 약 추가하기
           </button>
+          <button className="AlarmButton" onClick={() => navigate("/alarm")}> 복용약 알림 설정</button>
         </div>
       )}
 

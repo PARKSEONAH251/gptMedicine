@@ -234,28 +234,27 @@ export default function Calendar() {
                       {item.startDate} ~ {item.endDate}
                     </span>
                   )}
+                  <div className="RightButtons">
+                    {/* {recordData[selectedDate]?.[item.key] && <span className="CheckMark">✓</span>} */}
 
-                  {recordData[selectedDate]?.[item.key] && <span className="CheckMark">✓</span>}
+                    <button
+                      className="EditBtn"
+                      onClick={() => {
+                        setEditItem(item);
+                        setEditName(item.label.replace(" 복용하셨나요?", ""));
+                        setEditStartDate(item.startDate || "");
+                        setEditEndDate(item.endDate || "");
+                        setShowEditModal(true);
+                      }}
+                    >
+                      ✎
+                    </button>
+
+                    <button className="DeleteBtn" onClick={() => deleteItem(item.key)}>
+                      ✕
+                    </button>
+                  </div>
                 </button>
-
-                <div className="RightButtons">
-                  <button
-                    className="EditBtn"
-                    onClick={() => {
-                      setEditItem(item);
-                      setEditName(item.label.replace(" 복용하셨나요?", ""));
-                      setEditStartDate(item.startDate || "");
-                      setEditEndDate(item.endDate || "");
-                      setShowEditModal(true);
-                    }}
-                  >
-                    ✎
-                  </button>
-
-                  <button className="DeleteBtn" onClick={() => deleteItem(item.key)}>
-                    ✕
-                  </button>
-                </div>
               </div>
             ))}
 

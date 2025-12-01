@@ -86,79 +86,81 @@ export default function SearchResult() {
         cleanAnswer.split(/(?=\d\))/g).filter((s) => s.trim() !== "");
 
     return (
-        <div className="ResultContainer">
-            <img src="/image/mini_pattern.png" className="Login-Primary-Patterntopimage" />
-            <img src="/image/Primary_Pattern.png" className="Login-Primary-PatternBottonimage" />
-            {/* ✔ 로딩 화면 */}
-            {loading ? (
-                <div className="LoadingBox">
-                    <img
-                        src="/image/loadingpattern.png"
-                        alt="loading"
-                        className="LoadingImage"
-                    />
-                    <p className="LoadingText">의약품 정보를 분석 중입니다...</p>
-                </div>
-            ) : (
-                <>
-                    {/* 🔵 A 모드 — 상세 말풍선 카드 */}
-                    {mode === "A" && (
-                        <div className="A-ModeWrapper">
-                            <div className="ResultBox">
-                                {sections.map((sec, index) => {
-                                    const titleMatch = sec.match(/^(\d\)\s*.*?)(?:\n|$)/);
-                                    const title = titleMatch ? titleMatch[1] : "";
-                                    const content = sec.replace(title, "").trim();
-                                    const num = title.charAt(0);
-                                    const icon = iconMap[num] || "💊";
+        <div className="AppWrapper">
+            <div className="ResultContainer">
+                <img src="/image/mini_pattern.png" className="Search-Primary-Patterntopimage" />
+                <img src="/image/Primary_Pattern.png" className="Search-Primary-PatternBottonimage" />
+                {/* ✔ 로딩 화면 */}
+                {loading ? (
+                    <div className="LoadingBox">
+                        <img
+                            src="/image/loadingpattern.png"
+                            alt="loading"
+                            className="LoadingImage"
+                        />
+                        <p className="LoadingText">의약품 정보를 분석 중입니다...</p>
+                    </div>
+                ) : (
+                    <>
+                        {/* 🔵 A 모드 — 상세 말풍선 카드 */}
+                        {mode === "A" && (
+                            <div className="A-ModeWrapper">
+                                <div className="ResultBox">
+                                    {sections.map((sec, index) => {
+                                        const titleMatch = sec.match(/^(\d\)\s*.*?)(?:\n|$)/);
+                                        const title = titleMatch ? titleMatch[1] : "";
+                                        const content = sec.replace(title, "").trim();
+                                        const num = title.charAt(0);
+                                        const icon = iconMap[num] || "💊";
 
-                                    return (
-                                        <div className="section-card" key={index}>
-                                            <div className="icon-bubble">{icon}</div>
+                                        return (
+                                            <div className="section-card" key={index}>
+                                                <div className="icon-bubble">{icon}</div>
 
-                                            <div className="bubble-box">
-                                                <p className="bubble-title">{title}</p>
-                                                <div className="bubble-content">
-                                                    <ReactMarkdown>{content}</ReactMarkdown>
+                                                <div className="bubble-box">
+                                                    <p className="bubble-title">{title}</p>
+                                                    <div className="bubble-content">
+                                                        <ReactMarkdown>{content}</ReactMarkdown>
+                                                    </div>
                                                 </div>
                                             </div>
-                                        </div>
-                                    );
-                                })}
+                                        );
+                                    })}
+                                </div>
                             </div>
-                        </div>
-                    )}
+                        )}
 
-                    {/* 🟩 B 모드 — 간단 약 추천 */}
-                    {mode === "B" && (
-                        <div className="SimpleBox">
-                            <ReactMarkdown>{cleanAnswer}</ReactMarkdown>
-                        </div>
-                    )}
+                        {/* 🟩 B 모드 — 간단 약 추천 */}
+                        {mode === "B" && (
+                            <div className="SimpleBox">
+                                <ReactMarkdown>{cleanAnswer}</ReactMarkdown>
+                            </div>
+                        )}
 
-                    {/* 🟨 C 모드 — 약 간단 요약 */}
-                    {mode === "C" && (
-                        <div className="SimpleBox">
-                            <ReactMarkdown>{cleanAnswer}</ReactMarkdown>
-                        </div>
-                    )}
-                </>
-            )}
+                        {/* 🟨 C 모드 — 약 간단 요약 */}
+                        {mode === "C" && (
+                            <div className="SimpleBox">
+                                <ReactMarkdown>{cleanAnswer}</ReactMarkdown>
+                            </div>
+                        )}
+                    </>
+                )}
 
-            {/* 🔍 SearchBox (하단 20% 고정) */}
-            <div className="ResultSearchWrapper">
-                <div className="Result-SearchBox">
-                    <input
-                        type="text"
-                        className="SearchInput"
-                        placeholder="궁금한 내용을 입력하세요"
-                        value={input}
-                        onChange={(e) => setInput(e.target.value)}
-                        onKeyDown={(e) => e.key === "Enter" && handleSearch()}
-                    />
-                    <button className="VoiceButton">
-                        <img src="/image/voice.png" alt="Voice" />
-                    </button>
+                {/* 🔍 SearchBox (하단 20% 고정) */}
+                <div className="ResultSearchWrapper">
+                    <div className="Result-SearchBox">
+                        <input
+                            type="text"
+                            className="SearchInput"
+                            placeholder="궁금한 내용을 입력하세요"
+                            value={input}
+                            onChange={(e) => setInput(e.target.value)}
+                            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                        />
+                        <button className="VoiceButton">
+                            <img src="/image/voice.png" alt="Voice" />
+                        </button>
+                    </div>
                 </div>
             </div>
         </div>

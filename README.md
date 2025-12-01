@@ -5,6 +5,13 @@ DB : https://drive.google.com/file/d/1MHQQjxXMtuvq2DWiHulGs3Fn7zb6Yk-O/view?usp=
 Nginx : https://drive.google.com/file/d/11N1mkI-PlCbSTnScgNo0RuRpfq6us9rF/view?usp=sharing <br>
 에서 찾을 수 있습니다. <br><br>
 
+이미지 파일을 다운받은 폴더에서 (예시로 C드라이브의 다운로드 폴더의 경우 "C:\Users\<사용자 이름>\Downloads") <br> 
+터미널(CMD 혹은 파워셀)을 실행하여 아래 명령어를 실행합니다. <br><br>
+
+docker load -i api2.tar <br>
+docker load -i db.tar <br>
+docker laod -i nginx.tar <br><br>
+
 컨테이너 생성시 이름과 포트를 아래와 같이 하셔야 수정 없이 실행 가능합니다. <br><br>
 API2 ->  ApiTest <br>
 DB -> DBserver <br>

@@ -1,12 +1,12 @@
 import React, { useEffect, useState, useRef } from "react";
 import { useNavigate, useLocation } from "react-router-dom";
 import ReactMarkdown from "react-markdown";
-import { askGPT } from "../api/gpt";
 import "./SearchResult.css";
 
 export default function SearchResult() {
     const navigate = useNavigate();
     const location = useLocation();
+
     const query = new URLSearchParams(location.search).get("query");
 
     const [loading, setLoading] = useState(true);
@@ -15,6 +15,7 @@ export default function SearchResult() {
     const hasCalled = useRef(false);
     const [input, setInput] = useState("");
 
+    // 검색 실행
     const handleSearch = () => {
         if (!input.trim()) {
             alert("궁금하신 내용을 입력하세요!");
@@ -28,10 +29,7 @@ export default function SearchResult() {
         navigate(`/search?query=${encodeURIComponent(input)}`);
     };
 
-    useEffect(() => {
-        hasCalled.current = false;
-    }, [query]);
-
+    // 아이콘 맵핑
     const iconMap = {
         "1": "💊",
         "2": "🌿",
@@ -43,7 +41,9 @@ export default function SearchResult() {
         "8": "📝"
     };
 
+    // GPT 텍스트 포맷터
     const formatGPTText = (text) => {
+        if (!text) return "";
         return text
             .replace(/^1\)/gm, "1)")
             .replace(/^2\)/gm, "2)")
@@ -57,40 +57,68 @@ export default function SearchResult() {
             .replace(/- /g, "• ");
     };
 
+    // 🔥 핵심: 서버 API 호출 (DB + GPT 통합)
     useEffect(() => {
         const fetchResult = async () => {
             if (!query) return;
             if (hasCalled.current) return;
+
             hasCalled.current = true;
 
-            const res = await askGPT(query);
-            const formatted = formatGPTText(res);
-            setAnswer(formatted);
+            try {
+                const res = await fetch("http://localhost:4000/api/medicines/analyze", {
+                    method: "POST",
+                    headers: { "Content-Type": "application/json" },
+                    body: JSON.stringify({ text: query }),
+                });
+
+                const data = await res.json();
+
+                // 서버에서 제공하는 최종 분석 결과 (약 1~3개 병합)
+                const finalText =
+                    data.finalAnalysis ||
+                    data.combinedInteraction ||
+                    "결과를 불러올 수 없습니다.";
+
+                setAnswer(formatGPTText(finalText));
+
+            } catch (error) {
+                console.error("SearchResult 오류:", error);
+                setAnswer("오류가 발생했습니다. 다시 시도해주세요.");
+            }
+
             setLoading(false);
         };
 
         fetchResult();
     }, [query]);
 
-    // 🔥 모드 자동 분리
+    // 모드 감지
     const mode =
-        answer.startsWith("[A]") ? "A" :
-            answer.startsWith("[B]") ? "B" :
-                answer.startsWith("[C]") ? "C" : "A";
+        answer.startsWith("1)") ? "A" :
+        answer.startsWith("[B]") ? "B" :
+        answer.startsWith("[C]") ? "C" : "A";
 
-    // 🔥 첫 줄([A][B][C]) 제거
     const cleanAnswer = answer.replace(/^\[[A-C]\]\s*/, "");
 
-    // 🔥 A 모드 → 1~8 구조 분리
-    const sections =
-        cleanAnswer.split(/(?=\d\))/g).filter((s) => s.trim() !== "");
+    // A 모드 1~8 항목 분리
+    const sections = cleanAnswer
+        .split(/(?=\d\))/g)
+        .filter((s) => s.trim() !== "");
 
     return (
         <div className="AppWrapper">
             <div className="ResultContainer">
-                <img src="/image/mini_pattern.png" className="Search-Primary-Patterntopimage" />
-                <img src="/image/Primary_Pattern.png" className="Search-Primary-PatternBottonimage" />
-                {/* ✔ 로딩 화면 */}
+                <img
+                    src="/image/mini_pattern.png"
+                    className="Search-Primary-Patterntopimage"
+                />
+                <img
+                    src="/image/Primary_Pattern.png"
+                    className="Search-Primary-PatternBottonimage"
+                />
+
+                {/* 🔵 로딩 화면 */}
                 {loading ? (
                     <div className="LoadingBox">
                         <img
@@ -102,25 +130,40 @@ export default function SearchResult() {
                     </div>
                 ) : (
                     <>
-                        {/* 🔵 A 모드 — 상세 말풍선 카드 */}
+                        {/* 🔵 A 모드 */}
                         {mode === "A" && (
                             <div className="A-ModeWrapper">
                                 <div className="ResultBox">
                                     {sections.map((sec, index) => {
-                                        const titleMatch = sec.match(/^(\d\)\s*.*?)(?:\n|$)/);
-                                        const title = titleMatch ? titleMatch[1] : "";
-                                        const content = sec.replace(title, "").trim();
+                                        const titleMatch = sec.match(
+                                            /^(\d\)\s*.*?)(?:\n|$)/
+                                        );
+                                        const title = titleMatch
+                                            ? titleMatch[1]
+                                            : "";
+                                        const content = sec
+                                            .replace(title, "")
+                                            .trim();
                                         const num = title.charAt(0);
-                                        const icon = iconMap[num] || "💊";
+                                        const icon =
+                                            iconMap[num] || "💊";
 
                                         return (
-                                            <div className="section-card" key={index}>
-                                                <div className="icon-bubble">{icon}</div>
-
+                                            <div
+                                                className="section-card"
+                                                key={index}
+                                            >
+                                                <div className="icon-bubble">
+                                                    {icon}
+                                                </div>
                                                 <div className="bubble-box">
-                                                    <p className="bubble-title">{title}</p>
+                                                    <p className="bubble-title">
+                                                        {title}
+                                                    </p>
                                                     <div className="bubble-content">
-                                                        <ReactMarkdown>{content}</ReactMarkdown>
+                                                        <ReactMarkdown>
+                                                            {content}
+                                                        </ReactMarkdown>
                                                     </div>
                                                 </div>
                                             </div>
@@ -130,23 +173,27 @@ export default function SearchResult() {
                             </div>
                         )}
 
-                        {/* 🟩 B 모드 — 간단 약 추천 */}
+                        {/* 🟩 B 모드 */}
                         {mode === "B" && (
                             <div className="SimpleBox">
-                                <ReactMarkdown>{cleanAnswer}</ReactMarkdown>
+                                <ReactMarkdown>
+                                    {cleanAnswer}
+                                </ReactMarkdown>
                             </div>
                         )}
 
-                        {/* 🟨 C 모드 — 약 간단 요약 */}
+                        {/* 🟨 C 모드 */}
                         {mode === "C" && (
                             <div className="SimpleBox">
-                                <ReactMarkdown>{cleanAnswer}</ReactMarkdown>
+                                <ReactMarkdown>
+                                    {cleanAnswer}
+                                </ReactMarkdown>
                             </div>
                         )}
                     </>
                 )}
 
-                {/* 🔍 SearchBox (하단 20% 고정) */}
+                {/* 검색창 */}
                 <div className="ResultSearchWrapper">
                     <div className="Result-SearchBox">
                         <input
@@ -155,10 +202,15 @@ export default function SearchResult() {
                             placeholder="궁금한 내용을 입력하세요"
                             value={input}
                             onChange={(e) => setInput(e.target.value)}
-                            onKeyDown={(e) => e.key === "Enter" && handleSearch()}
+                            onKeyDown={(e) =>
+                                e.key === "Enter" && handleSearch()
+                            }
                         />
                         <button className="VoiceButton">
-                            <img src="/image/voice.png" alt="Voice" />
+                            <img
+                                src="/image/voice.png"
+                                alt="Voice"
+                            />
                         </button>
                     </div>
                 </div>

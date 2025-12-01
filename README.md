@@ -5,10 +5,10 @@ DB : https://drive.google.com/file/d/1MHQQjxXMtuvq2DWiHulGs3Fn7zb6Yk-O/view?usp=
 Nginx : https://drive.google.com/file/d/11N1mkI-PlCbSTnScgNo0RuRpfq6us9rF/view?usp=sharing <br>
 에서 찾을 수 있습니다. <br><br>
 
-컨테이너 생성시 이름과 포트를 아래와 같이 하셔야 수정 없이 실행 가능합니다.
-API2 ->  ApiTest
-DB -> DBserver
-Nginx -> Nginx
+컨테이너 생성시 이름과 포트를 아래와 같이 하셔야 수정 없이 실행 가능합니다. <br><br>
+API2 ->  ApiTest <br>
+DB -> DBserver <br>
+Nginx -> Nginx <br>
 
 포트는 각각 <br>
 API : 2080:3000 <br>
@@ -19,7 +19,7 @@ Nginx : 404:80 <br>
 Nginx 컨테이너가 지속적으로 종료 될시 아래 명령어를 통해 생성 하시면 됩니다. <br>
 docker run -d --name nginx nginx:latest tail -f /dev/null <br>
 
-컨테이너 실행후 각각 <br>
+컨테이너 실행후 각각 <br><br>
 API 컨테이너 <br>
 sudo su <br>
 cd /home/forserver2/ <br>
@@ -42,9 +42,15 @@ docker network connect <네트워크 그룹 이름> DBserver <br>
 docker network connect <네트워크 그룹 이름> ApiTest  <br>
 docker network connect <네트워크 그룹 이름> Nginx <br><br>
 
-DB에 테이블이 없을시 아래 생성문을 사용합니다.  <br>
+DB 계정의 정보는 API 컨테이너의 /home/forserver2/db/mariadb.js 에 들어있습니다. <br><br>
 
-create database gpt; <br>
+DB 컨테이너에서 DB에 로그인을 하려면 아래 명령어를 입력합니다. <br><br>
+mariadb -u root -p <br><br>
+비밀번호는 기본적으로 jsp16 으로 설정되어 있습니다. <br><br>
+
+DB서버의 데이터베이스와 테이블은 아래 생성문을 사용합니다.  <br><br>
+
+create database gpt; <br><br>
 
 CREATE TABLE `UserLogin` ( <br>
   `member_id` int(11) NOT NULL AUTO_INCREMENT, <br>

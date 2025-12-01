@@ -12,13 +12,14 @@ const app = express();
 app.use(cors());
 app.use(express.json());
 
-// 🔥 서버용 GPT KEY (server/.env 에 OPENAI_API_KEY=... 로 설정)
-const OPENAI_API_KEY = process.env.OPENAI_API_KEY;
+const serviceAccount = JSON.parse(process.env.GOOGLE_SERVICE_ACCOUNT_JSON);
 
-// 🔥 BigQuery 연결
 const bigquery = new BigQuery({
-    projectId: process.env.GCP_PROJECT_ID,
-    keyFilename: process.env.GOOGLE_APPLICATION_CREDENTIALS,
+    projectId: serviceAccount.project_id,
+    credentials: {
+        client_email: serviceAccount.client_email,
+        private_key: serviceAccount.private_key
+    }
 });
 
 /* -------------------------------------------------------

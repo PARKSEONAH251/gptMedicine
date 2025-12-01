@@ -130,11 +130,11 @@ export default function Calendar() {
       prev.map((item) =>
         item.key === key
           ? {
-              ...item,
-              label: `${newName} 복용하셨나요?`,
-              startDate: newStartDate,
-              endDate: newEndDate,
-            }
+            ...item,
+            label: `${newName} 복용하셨나요?`,
+            startDate: newStartDate,
+            endDate: newEndDate,
+          }
           : item
       )
     );
@@ -153,7 +153,7 @@ export default function Calendar() {
 
   return (
     <div className="CalContainer">
-      <img src="/image/mini_pattern.png" className="Login-Primary-Patterntopimage" />
+      <img src="/image/mini_pattern.png" className="Calender-Primary-Patterntopimage" />
 
       {/* 🔥 친구 초대 버튼 → Onboarding 이동 */}
       <button className="AddFriendButton" onClick={() => navigate("/onboarding")}>
@@ -178,185 +178,187 @@ export default function Calendar() {
         )}
       </div> */}
 
-      {/* 월 이동 */}
-      <div className="CalHeader">
-        <button className="CalBtn" onClick={prevMonth}>«</button>
-        <h2 className="CalTitle">{year}년 {month + 1}월</h2>
-        <button className="CalBtn" onClick={nextMonth}>»</button>
-      </div>
+      <div className={`Calendar-Container ${selectedDate ? "active" : ""}`}>
+        {/* 월 이동 */}
+        <div className="CalHeader">
+          <button className="CalBtn" onClick={prevMonth}>«</button>
+          <h2 className="CalTitle">{year}년 {month + 1}월</h2>
+          <button className="CalBtn" onClick={nextMonth}>»</button>
+        </div>
 
-      {/* 요일 */}
-      <div className="CalWeekdays">
-        {["일", "월", "화", "수", "목", "금", "토"].map((w) => (
-          <div key={w}>{w}</div>
-        ))}
-      </div>
+        {/* 요일 */}
+        <div className="CalWeekdays">
+          {["일", "월", "화", "수", "목", "금", "토"].map((w) => (
+            <div key={w}>{w}</div>
+          ))}
+        </div>
 
-      {/* 날짜 표시 */}
-      <div className="CalGrid">
-        {days.map((day, index) => {
-          const dateKey = day ? formatDate(year, month, day) : null;
+        {/* 날짜 표시 */}
+        <div className="CalGrid">
+          {days.map((day, index) => {
+            const dateKey = day ? formatDate(year, month, day) : null;
 
-          const isSelected = selectedDate === dateKey;
+            const isSelected = selectedDate === dateKey;
 
-          const isToday =
-            day === today.getDate() &&
-            month === today.getMonth() &&
-            year === today.getFullYear();
+            const isToday =
+              day === today.getDate() &&
+              month === today.getMonth() &&
+              year === today.getFullYear();
 
-          return (
-            <div
-              key={index}
-              className={`CalDay ${day ? "" : "empty"} ${isToday ? "today" : ""} ${isSelected ? "selected" : ""}`}
-              onClick={() => day && setSelectedDate(dateKey)}
-            >
-              {day && <span>{day}</span>}
-            </div>
-          );
-        })}
-      </div>
-
-      {/* 선택 날짜의 기록 */}
-      {selectedDate && (
-        <div className="RecordBox">
-          {recordItems.map((item) => (
-            <div key={item.key} className="RecordItemWrapper">
-              <button
-                className={`RecordItem ${recordData[selectedDate]?.[item.key] ? "checked" : ""}`}
-                onClick={() => updateCheck(item.key)}
+            return (
+              <div
+                key={index}
+                className={`CalDay ${day ? "" : "empty"} ${isToday ? "today" : ""} ${isSelected ? "selected" : ""}`}
+                onClick={() => day && setSelectedDate(dateKey)}
               >
-                <img src={item.icon} alt={item.key} />
-                <span>{item.label}</span>
+                {day && <span>{day}</span>}
+              </div>
+            );
+          })}
+        </div>
 
-                {(item.startDate || item.endDate) && (
-                  <span className="EndDateLabel">
-                    {item.startDate} ~ {item.endDate}
-                  </span>
-                )}
-
-                {recordData[selectedDate]?.[item.key] && <span className="CheckMark">✓</span>}
-              </button>
-
-              <div className="RightButtons">
+        {/* 선택 날짜의 기록 */}
+        {selectedDate && (
+          <div className="RecordBox">
+            {recordItems.map((item) => (
+              <div key={item.key} className="RecordItemWrapper">
                 <button
-                  className="EditBtn"
-                  onClick={() => {
-                    setEditItem(item);
-                    setEditName(item.label.replace(" 복용하셨나요?", ""));
-                    setEditStartDate(item.startDate || "");
-                    setEditEndDate(item.endDate || "");
-                    setShowEditModal(true);
-                  }}
+                  className={`RecordItem ${recordData[selectedDate]?.[item.key] ? "checked" : ""}`}
+                  onClick={() => updateCheck(item.key)}
                 >
-                  ✎
+                  <img src={item.icon} alt={item.key} />
+                  <span>{item.label}</span>
+
+                  {(item.startDate || item.endDate) && (
+                    <span className="EndDateLabel">
+                      {item.startDate} ~ {item.endDate}
+                    </span>
+                  )}
+
+                  {recordData[selectedDate]?.[item.key] && <span className="CheckMark">✓</span>}
                 </button>
 
-                <button className="DeleteBtn" onClick={() => deleteItem(item.key)}>
-                  ✕
+                <div className="RightButtons">
+                  <button
+                    className="EditBtn"
+                    onClick={() => {
+                      setEditItem(item);
+                      setEditName(item.label.replace(" 복용하셨나요?", ""));
+                      setEditStartDate(item.startDate || "");
+                      setEditEndDate(item.endDate || "");
+                      setShowEditModal(true);
+                    }}
+                  >
+                    ✎
+                  </button>
+
+                  <button className="DeleteBtn" onClick={() => deleteItem(item.key)}>
+                    ✕
+                  </button>
+                </div>
+              </div>
+            ))}
+
+            <button className="AddRecordButton" onClick={() => setShowAddModal(true)}>
+              + 복용 약 추가하기
+            </button>
+
+            <button className="AlarmButton" onClick={() => navigate("/alarm")}>
+              복용약 알림 설정
+            </button>
+          </div>
+        )}
+
+        {/* 추가 모달 */}
+        {showAddModal && (
+          <div className="ModalOverlay">
+            <div className="ModalBox">
+              <h3>추가할 약 이름</h3>
+
+              <input
+                type="text"
+                className="ModalInput"
+                placeholder="예: 비타민C"
+                value={newItemName}
+                onChange={(e) => setNewItemName(e.target.value)}
+              />
+
+              <h4>언제부터 복용하나요?</h4>
+              <input
+                type="date"
+                className="ModalInput"
+                value={newItemStartDate}
+                onChange={(e) => setNewItemStartDate(e.target.value)}
+              />
+
+              <h4>언제까지 복용하나요?</h4>
+              <input
+                type="date"
+                className="ModalInput"
+                value={newItemEndDate}
+                onChange={(e) => setNewItemEndDate(e.target.value)}
+              />
+
+              <div className="ModalButtons">
+                <button className="ModalCancel" onClick={() => setShowAddModal(false)}>
+                  취소
+                </button>
+                <button className="ModalAdd" onClick={addNewRecordItem}>
+                  추가
                 </button>
               </div>
             </div>
-          ))}
+          </div>
+        )}
 
-          <button className="AddRecordButton" onClick={() => setShowAddModal(true)}>
-            + 복용 약 추가하기
-          </button>
+        {/* 수정 모달 */}
+        {showEditModal && (
+          <div className="ModalOverlay">
+            <div className="ModalBox">
+              <h3>약 정보 수정</h3>
 
-          <button className="AlarmButton" onClick={() => navigate("/alarm")}>
-            복용약 알림 설정
-          </button>
-        </div>
-      )}
+              <input
+                type="text"
+                className="ModalInput"
+                value={editName}
+                onChange={(e) => setEditName(e.target.value)}
+              />
 
-      {/* 추가 모달 */}
-      {showAddModal && (
-        <div className="ModalOverlay">
-          <div className="ModalBox">
-            <h3>추가할 약 이름</h3>
+              <h4>복용 시작일</h4>
+              <input
+                type="date"
+                className="ModalInput"
+                value={editStartDate}
+                onChange={(e) => setEditStartDate(e.target.value)}
+              />
 
-            <input
-              type="text"
-              className="ModalInput"
-              placeholder="예: 비타민C"
-              value={newItemName}
-              onChange={(e) => setNewItemName(e.target.value)}
-            />
+              <h4>복용 종료일</h4>
+              <input
+                type="date"
+                className="ModalInput"
+                value={editEndDate}
+                onChange={(e) => setEditEndDate(e.target.value)}
+              />
 
-            <h4>언제부터 복용하나요?</h4>
-            <input
-              type="date"
-              className="ModalInput"
-              value={newItemStartDate}
-              onChange={(e) => setNewItemStartDate(e.target.value)}
-            />
+              <div className="ModalButtons">
+                <button className="ModalCancel" onClick={() => setShowEditModal(false)}>
+                  취소
+                </button>
 
-            <h4>언제까지 복용하나요?</h4>
-            <input
-              type="date"
-              className="ModalInput"
-              value={newItemEndDate}
-              onChange={(e) => setNewItemEndDate(e.target.value)}
-            />
-
-            <div className="ModalButtons">
-              <button className="ModalCancel" onClick={() => setShowAddModal(false)}>
-                취소
-              </button>
-              <button className="ModalAdd" onClick={addNewRecordItem}>
-                추가
-              </button>
+                <button
+                  className="ModalAdd"
+                  onClick={() => {
+                    updateRecordItem(editItem.key, editName, editStartDate, editEndDate);
+                    setShowEditModal(false);
+                  }}
+                >
+                  수정하기
+                </button>
+              </div>
             </div>
           </div>
-        </div>
-      )}
-
-      {/* 수정 모달 */}
-      {showEditModal && (
-        <div className="ModalOverlay">
-          <div className="ModalBox">
-            <h3>약 정보 수정</h3>
-
-            <input
-              type="text"
-              className="ModalInput"
-              value={editName}
-              onChange={(e) => setEditName(e.target.value)}
-            />
-
-            <h4>복용 시작일</h4>
-            <input
-              type="date"
-              className="ModalInput"
-              value={editStartDate}
-              onChange={(e) => setEditStartDate(e.target.value)}
-            />
-
-            <h4>복용 종료일</h4>
-            <input
-              type="date"
-              className="ModalInput"
-              value={editEndDate}
-              onChange={(e) => setEditEndDate(e.target.value)}
-            />
-
-            <div className="ModalButtons">
-              <button className="ModalCancel" onClick={() => setShowEditModal(false)}>
-                취소
-              </button>
-
-              <button
-                className="ModalAdd"
-                onClick={() => {
-                  updateRecordItem(editItem.key, editName, editStartDate, editEndDate);
-                  setShowEditModal(false);
-                }}
-              >
-                수정하기
-              </button>
-            </div>
-          </div>
-        </div>
-      )}
+        )}
+      </div>
     </div>
   );
 }

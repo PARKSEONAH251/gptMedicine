@@ -3,21 +3,35 @@
 /* =============================== */
 .CalContainer {
   position: relative;
-  padding: 20px;
-  max-width: 380px;
+  width: 100%;
+  max-width: 390px;
+  min-height: 100vh;
+
+  margin: 0 auto;
+
   display: flex;
+  justify-content: center;
   flex-direction: column;
   align-items: center;
-  padding-top: 120px;
   font-family: Pretendard, sans-serif;
 }
 
+.Calender-Primary-Patterntopimage{
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 55%;
+  max-width: 390px;
+  pointer-events: none;
+  z-index: 1;
+
+}
 /* =============================== */
 /* 친구추가 */
 /* =============================== */
 .AddFriendButton {
   position: absolute;
-  top: 2%;
+  top: 10%;
   right: 12px;
   background: none;
   border: none;
@@ -28,6 +42,17 @@
 /* =============================== */
 /* 헤더 + 월 이동 */
 /* =============================== */
+
+.Calendar-Container{
+  margin-top: 0;
+  transition: 0.25s ease; /* 부드럽게 */
+}
+
+/* 날짜 선택 후 활성화 상태 */
+.Calendar-Container.active {
+  margin-top: 20%;
+}
+
 .CalHeader {
   width: 100%;
   display: flex;
@@ -62,7 +87,7 @@
   grid-template-columns: repeat(7, 1fr);
   justify-items: center;
   width: 100%;
-  font-size: 12px;
+  font-size: 15px;
   color: #555;
   margin-top: 20px;
   margin-bottom: 15px;
@@ -76,6 +101,7 @@
   grid-template-columns: repeat(7, 1fr);
   width: 100%;
   row-gap: 13px;
+  gap: 10px;
   justify-items: center;
 }
 
@@ -109,7 +135,7 @@
 /* 기록 박스 */
 /* =============================== */
 .RecordBox {
-  margin-top: 25px;
+  margin-top: 35px;
   width: 100%;
   display: flex;
   flex-direction: column;

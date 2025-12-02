@@ -15,7 +15,7 @@ export default function SearchResult() {
     const hasCalled = useRef(false);
     const [input, setInput] = useState("");
 
-    // 검색 실행
+    //🔍 검색 실행
     const handleSearch = () => {
         if (!input.trim()) {
             alert("궁금하신 내용을 입력하세요!");
@@ -29,7 +29,7 @@ export default function SearchResult() {
         navigate(`/search?query=${encodeURIComponent(input)}`);
     };
 
-    // 아이콘 맵핑
+    // 아이콘 매핑
     const iconMap = {
         "1": "💊",
         "2": "🌿",
@@ -38,26 +38,24 @@ export default function SearchResult() {
         "5": "⚠️",
         "6": "🚫",
         "7": "🔍",
-        "8": "📝"
+        "8": "📝",
     };
+
 
     // GPT 텍스트 포맷터
     const formatGPTText = (text) => {
         if (!text) return "";
+
         return text
-            .replace(/^1\)/gm, "1)")
-            .replace(/^2\)/gm, "2)")
-            .replace(/^3\)/gm, "3)")
-            .replace(/^4\)/gm, "4)")
-            .replace(/^5\)/gm, "5)")
-            .replace(/^6\)/gm, "6)")
-            .replace(/^7\)/gm, "7)")
-            .replace(/^8\)/gm, "8)")
-            .replace(/[⚠️⭐🌿💊📌🚫🔍📝✨🔥👉🌟]+/g, "")
-            .replace(/- /g, "• ");
+            .replace(/[⚠️⭐🌿💊📌🚫🔍📝✨🔥👉🌟]+/g, "") // 기존 이모지 제거
+            .replace(/- /g, "• ") // 리스트 정리
+            .replace(/^\s+/gm, "") // 라인 앞 공백 제거
+            .trim();
     };
 
-    // 🔥 핵심: 서버 API 호출 (DB + GPT 통합)
+
+    // 핵심: API 호출 (Vercel Serverless)
+
     useEffect(() => {
         const fetchResult = async () => {
             if (!query) return;
@@ -66,22 +64,24 @@ export default function SearchResult() {
             hasCalled.current = true;
 
             try {
-                const res = await fetch("http://localhost:4000/api/medicines/analyze", {
+                const res = await fetch("/api/analyze", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ text: query }),
                 });
 
+                if (!res.ok) {
+                    throw new Error("서버 응답 실패");
+                }
+
                 const data = await res.json();
 
-                // 서버에서 제공하는 최종 분석 결과 (약 1~3개 병합)
                 const finalText =
                     data.finalAnalysis ||
                     data.combinedInteraction ||
                     "결과를 불러올 수 없습니다.";
 
                 setAnswer(formatGPTText(finalText));
-
             } catch (error) {
                 console.error("SearchResult 오류:", error);
                 setAnswer("오류가 발생했습니다. 다시 시도해주세요.");
@@ -93,15 +93,18 @@ export default function SearchResult() {
         fetchResult();
     }, [query]);
 
-    // 모드 감지
+
+    //📌 모드 감지 (A / B / C)
+
     const mode =
         answer.startsWith("1)") ? "A" :
-        answer.startsWith("[B]") ? "B" :
-        answer.startsWith("[C]") ? "C" : "A";
+        answer.includes("📌 증상 분류") ? "B" :
+        answer.startsWith("📌 약 이름") ? "C" : "A";
 
     const cleanAnswer = answer.replace(/^\[[A-C]\]\s*/, "");
 
-    // A 모드 1~8 항목 분리
+
+    //🧩 A 모드 → 1~8 항목 분리
     const sections = cleanAnswer
         .split(/(?=\d\))/g)
         .filter((s) => s.trim() !== "");
@@ -118,7 +121,7 @@ export default function SearchResult() {
                     className="Search-Primary-PatternBottonimage"
                 />
 
-                {/* 🔵 로딩 화면 */}
+                {/* 로딩화면 */}
                 {loading ? (
                     <div className="LoadingBox">
                         <img
@@ -126,11 +129,13 @@ export default function SearchResult() {
                             alt="loading"
                             className="LoadingImage"
                         />
-                        <p className="LoadingText">의약품 정보를 분석 중입니다...</p>
+                        <p className="LoadingText">
+                            의약품 정보를 분석 중입니다...
+                        </p>
                     </div>
                 ) : (
                     <>
-                        {/* 🔵 A 모드 */}
+                        {/* 🟥 A 모드 */}
                         {mode === "A" && (
                             <div className="A-ModeWrapper">
                                 <div className="ResultBox">
@@ -144,6 +149,7 @@ export default function SearchResult() {
                                         const content = sec
                                             .replace(title, "")
                                             .trim();
+
                                         const num = title.charAt(0);
                                         const icon =
                                             iconMap[num] || "💊";
@@ -173,21 +179,17 @@ export default function SearchResult() {
                             </div>
                         )}
 
-                        {/* 🟩 B 모드 */}
+                        {/* 🟩 B 모드 (증상 분석) */}
                         {mode === "B" && (
                             <div className="SimpleBox">
-                                <ReactMarkdown>
-                                    {cleanAnswer}
-                                </ReactMarkdown>
+                                <ReactMarkdown>{cleanAnswer}</ReactMarkdown>
                             </div>
                         )}
 
-                        {/* 🟨 C 모드 */}
+                        {/* 🟨 C 모드 (단일 약 요약) */}
                         {mode === "C" && (
                             <div className="SimpleBox">
-                                <ReactMarkdown>
-                                    {cleanAnswer}
-                                </ReactMarkdown>
+                                <ReactMarkdown>{cleanAnswer}</ReactMarkdown>
                             </div>
                         )}
                     </>
@@ -207,10 +209,7 @@ export default function SearchResult() {
                             }
                         />
                         <button className="VoiceButton">
-                            <img
-                                src="/image/voice.png"
-                                alt="Voice"
-                            />
+                            <img src="/image/voice.png" alt="Voice" />
                         </button>
                     </div>
                 </div>

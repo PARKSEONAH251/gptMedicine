@@ -41,21 +41,19 @@ export default function SearchResult() {
         "8": "📝",
     };
 
-
     // GPT 텍스트 포맷터
     const formatGPTText = (text) => {
         if (!text) return "";
 
         return text
-            .replace(/[⚠️⭐🌿💊📌🚫🔍📝✨🔥👉🌟]+/g, "") // 기존 이모지 제거
-            .replace(/- /g, "• ") // 리스트 정리
-            .replace(/^\s+/gm, "") // 라인 앞 공백 제거
+            .replace(/[⚠️⭐🌿💊📌🚫🔍📝✨🔥👉🌟]+/g, "")
+            .replace(/- /g, "• ")
+            .replace(/^\s+/gm, "")
             .trim();
     };
 
 
-    // 핵심: API 호출 (Vercel Serverless)
-
+    // ⭐ 핵심: 로컬 서버 API 호출 (http://localhost:4000)
     useEffect(() => {
         const fetchResult = async () => {
             if (!query) return;
@@ -64,7 +62,7 @@ export default function SearchResult() {
             hasCalled.current = true;
 
             try {
-                const res = await fetch("/api/analyze", {
+                const res = await fetch("http://localhost:4000/api/medicines/analyze", {
                     method: "POST",
                     headers: { "Content-Type": "application/json" },
                     body: JSON.stringify({ text: query }),
@@ -95,14 +93,12 @@ export default function SearchResult() {
 
 
     //📌 모드 감지 (A / B / C)
-
     const mode =
         answer.startsWith("1)") ? "A" :
         answer.includes("📌 증상 분류") ? "B" :
         answer.startsWith("📌 약 이름") ? "C" : "A";
 
     const cleanAnswer = answer.replace(/^\[[A-C]\]\s*/, "");
-
 
     //🧩 A 모드 → 1~8 항목 분리
     const sections = cleanAnswer
@@ -179,14 +175,14 @@ export default function SearchResult() {
                             </div>
                         )}
 
-                        {/* 🟩 B 모드 (증상 분석) */}
+                        {/* 🟩 B 모드 */}
                         {mode === "B" && (
                             <div className="SimpleBox">
                                 <ReactMarkdown>{cleanAnswer}</ReactMarkdown>
                             </div>
                         )}
 
-                        {/* 🟨 C 모드 (단일 약 요약) */}
+                        {/* 🟨 C 모드 */}
                         {mode === "C" && (
                             <div className="SimpleBox">
                                 <ReactMarkdown>{cleanAnswer}</ReactMarkdown>

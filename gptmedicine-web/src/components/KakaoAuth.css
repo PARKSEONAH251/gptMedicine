@@ -1,5 +1,4 @@
 .KakaoAuthContainer {
-
   padding: 40px 24px;
   display: flex;
   flex-direction: column;
@@ -8,6 +7,10 @@
   font-family: Pretendard, sans-serif;
   background-color: #ffffff;
   position: relative;
+}
+
+.kakoamainimage{
+  width: 50%;
 }
 
 /* 상단 패턴 이미지 */
@@ -20,7 +23,6 @@
 
 /* 제목 */
 .KakaoAuthTitle {
-  margin-top: 140px;
   font-size: 22px;
   font-weight: 600;
   color: #1a1a1a;

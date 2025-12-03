@@ -53,6 +53,7 @@ export default function KakaoAuth() {
 
   return (
     <div className="KakaoAuthContainer">
+      <img className="kakoamainimage" src="/image/kakao.png"></img>
       <h2 className="KakaoAuthTitle">카카오 계정으로 로그인</h2>
 
       <p className="KakaoAuthDesc">

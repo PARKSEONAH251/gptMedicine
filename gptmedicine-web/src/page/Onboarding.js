@@ -29,7 +29,7 @@ export default function Onboarding() {
 
     const inviterId = user.id;
 
-    const inviteLink = `http://localhost:3000/onboarding?invite=${inviterId}`;
+    const inviteLink = `http://localhost:3000/calendar?invite=${inviterId}`;
 
     if (!window.Kakao.isInitialized()) {
       window.Kakao.init("72d488b55a12a31ca0abd23ce5fe1522");

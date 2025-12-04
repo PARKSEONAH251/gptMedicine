@@ -1,0 +1,288 @@
+/* 전체 페이지 */
+.alarm-container {
+    width: 100%;
+    min-height: 100vh;          /* 전체 화면 기준으로 높이 확보 */
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    
+    padding-top: 5vh;          /* ⬅️ 화면 위에서 10% 지점에 배치됨 */
+    box-sizing: border-box;
+
+    font-family: Pretendard, sans-serif;
+}
+
+
+/* + 버튼 */
+.alarm-add-btn {
+    width: 90%;
+    background-color: #000;
+    color: #fff;
+    padding: 12px 0;
+    border-radius: 8px;
+    font-size: 22px;
+    border: none;
+    cursor: pointer;
+}
+
+/* 빈 화면(empty view) */
+.empty-view {
+    position: absolute;
+    top: 50%;                 /* 화면 세로 중앙 */
+    left: 50%;                /* 화면 가로 중앙 */
+    transform: translate(-50%, -50%);  /* 완전한 중앙 정렬 */
+
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: #444;
+}
+
+.empty-icon {
+    width: 65px;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+/* 알람 카드 리스트 */
+.alarm-list {
+    width: 90%;
+    margin-top: 10px;
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    align-items: center;
+}
+
+
+.alarm-card {
+    width: 100%;
+    background: #f2f2f2;
+    padding: 15px;
+    border-radius: 10px;
+    box-sizing: border-box;
+}
+
+.alarm-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.alarm-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.alarm-time-badge {
+    background: #ff7070;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.alarm-sub {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #666;
+}
+
+/* 알람 입력창 */
+.add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-bottom: 10%;
+}
+
+.input-field {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+}
+
+.btn-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.cancel-btn, .save-btn {
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.cancel-btn {
+    background: #ddd;
+}
+
+.save-btn {
+    background: #000;
+    color: #fff;
+}
+
+/* + 버튼 */
+.alarm-add-btn {
+    width: 90%;
+    background-color: #000;
+    color: #fff;
+    padding: 12px 0;
+    border-radius: 8px;
+    font-size: 22px;
+    border: none;
+    cursor: pointer;
+    margin-bottom: 35px; /* ⬅️ empty 화면을 + 버튼 아래에 위치 */
+}
+
+/* 빈 화면(empty view) */
+.empty-view {
+    margin-top: 20px; /* ⬅️ 전체 화면 위쪽으로 당김 */
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+
+    color: #444;
+}
+
+.empty-icon {
+    width: 65px;
+    opacity: 0.9;
+    margin-bottom: 10px;
+}
+
+/* 알람 카드 리스트 */
+.alarm-list {
+    margin-top: 20px;
+}
+
+.alarm-card {
+    width: 100%;
+    background: #f2f2f2;
+    padding: 15px;
+    border-radius: 10px;
+    margin-bottom: 14px;
+}
+
+.alarm-row {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+}
+
+.alarm-title {
+    font-size: 16px;
+    font-weight: 600;
+}
+
+.alarm-time-badge {
+    background: #ff7070;
+    color: #fff;
+    padding: 5px 10px;
+    border-radius: 20px;
+    font-size: 13px;
+}
+
+.alarm-sub {
+    margin-top: 5px;
+    font-size: 13px;
+    color: #666;
+}
+
+/* 알람 입력창 */
+.add-form {
+    display: flex;
+    flex-direction: column;
+    gap: 12px;
+    margin-top: 20px;
+}
+
+.input-field {
+    padding: 12px;
+    border-radius: 8px;
+    border: 1px solid #ddd;
+    font-size: 15px;
+}
+
+.btn-row {
+    display: flex;
+    justify-content: space-between;
+    gap: 10px;
+}
+
+.cancel-btn, .save-btn {
+    flex: 1;
+    padding: 12px 0;
+    border-radius: 8px;
+    border: none;
+    cursor: pointer;
+    font-size: 15px;
+}
+
+.cancel-btn {
+    background: #ddd;
+}
+
+.save-btn {
+    background: #000;
+    color: #fff;
+}
+
+/* 🔥 팝업 모달 전체 화면 덮기 */
+.modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100vw;
+    height: 100vh;
+    background: rgba(0,0,0,0.4);
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 999;
+}
+
+/* 🔥 중앙 팝업 박스 */
+.modal-box {
+    width: 85%;
+    max-width: 400px;
+    background: white;
+    padding: 20px;
+    border-radius: 12px;
+    box-shadow: 0 4px 20px rgba(0,0,0,0.2);
+    text-align: center;
+}
+
+/* 수정/삭제 버튼 */
+.edit-row {
+    display: flex;
+    justify-content: flex-end;
+    gap: 10px;
+    margin-top: 8px;
+}
+
+.edit-btn {
+    background: #666;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}
+
+.delete-btn {
+    background: #ff4444;
+    color: white;
+    padding: 4px 10px;
+    border-radius: 6px;
+    border: none;
+    cursor: pointer;
+}

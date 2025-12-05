@@ -9,6 +9,7 @@ import SearchResult from "./page/SearchResult";
 import Calendar from "./page/Calendar";
 import Alarm from "./page/Alarm";
 import Onboarding from "./page/Onboarding";
+import Profile from "./page/Profile";
 import KakaoAuth from "./components/KakaoAuth";
 
 import ProtectedRoute from "./components/ProtectedRoute";
@@ -40,6 +41,8 @@ function App() {
               </ProtectedRoute>
             }
           />
+
+          <Route path="/profile" element={<Profile/>}/>
         </Routes>
       </Router>
 

@@ -113,8 +113,18 @@ export default function Main() {
         src="/image/Primary_Pattern.png"
         className="Login-Primary-PatternBottonimage"
       />
-
+      
       <div className="MainContent">
+                {/* 🔥 사용자 프로필 섹션 */}
+        <div className="ProfileBar">
+          <div className="ProfileLeft">
+            <button className="ProfileSettingBtn" onClick={() => navigate("/Profile")}>
+              <img src="/image/profile.png" alt="profile" className="ProfileImage" />
+            </button>
+          </div>
+        </div>
+
+
         <p className="MainTitle">어떤 알약에 정보가 필요하신가요?</p>
 
         <div className="SearchBox">

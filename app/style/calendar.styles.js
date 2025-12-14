@@ -1,141 +1,137 @@
-// app/style/calendar.styles.js
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
+  /* ======================
+     기본 레이아웃 (신규 유지)
+  ====================== */
   container: {
     flex: 1,
-    padding: 12,
-    backgroundColor: "#fff"
+    backgroundColor: "#FFF",
+  },
+
+  topPattern: {
+    width: "100%",
+    height: 120,
+  },
+
+  bottomPattern: {
+    width: "100%",
+    height: 140,
+  },
+
+  content: {
+    flex: 1,
+    paddingHorizontal: 20,
+    paddingTop: 12,
   },
 
   /* ======================
-     헤더
+     헤더 (신규 유지)
   ====================== */
   header: {
     flexDirection: "row",
-    justifyContent: "space-between",
     alignItems: "center",
-    marginBottom: 8
+    justifyContent: "space-between",
+    marginBottom: 16,
   },
 
   headerTitle: {
-    fontSize: 20,
-    fontWeight: "bold"
+    fontSize: 22,
+    fontWeight: "700",
   },
 
   headerButtonGroup: {
-    flexDirection: "row"
+    flexDirection: "row",
   },
 
   headerButton: {
-    minWidth: 44,
-    minHeight: 44,
-    borderRadius: 10,
-    backgroundColor: "#eee",
+    width: 44,
+    height: 44,
+    borderRadius: 12,
+    backgroundColor: "#F4F4F4",
     justifyContent: "center",
     alignItems: "center",
-    marginLeft: 8
+    marginLeft: 8,
   },
 
   headerButtonText: {
     fontSize: 20,
-    fontWeight: "600"
+    fontWeight: "600",
   },
 
   /* ======================
-     날짜 제목
+     캘린더 / 리스트 (신규 유지)
   ====================== */
+  calendarBox: {
+    borderRadius: 16,
+    marginBottom: 16,
+  },
+
   dateTitle: {
-    fontSize: 16,
-    fontWeight: "bold",
-    marginVertical: 10
+    fontSize: 17,
+    fontWeight: "700",
+    marginBottom: 10,
   },
 
   emptyText: {
     textAlign: "center",
-    marginTop: 20,
-    color: "#888"
+    marginTop: 30,
+    color: "#888",
+    fontSize: 15,
   },
 
-  /* ======================
-     로그 (복용 할 일)
-  ====================== */
   logItem: {
-    padding: 12,
-    borderRadius: 10,
-    marginVertical: 6,
-    backgroundColor: "#f2f2f2"
+    padding: 16,
+    borderRadius: 16,
+    marginBottom: 12,
+    backgroundColor: "#F4F4F4",
   },
 
   logDone: {
-    backgroundColor: "#d4f8d4"
+    backgroundColor: "#E6FFFA",
   },
 
   logCanceled: {
-    backgroundColor: "#f8d4d4"
+    backgroundColor: "#FFECEC",
   },
 
   logRow: {
     flexDirection: "row",
     justifyContent: "space-between",
-    alignItems: "center"
+    marginBottom: 4,
   },
 
   logTime: {
-    fontSize: 15,
-    fontWeight: "bold"
+    fontSize: 16,
+    fontWeight: "700",
   },
 
   logStatus: {
-    fontSize: 13,
-    fontWeight: "600"
+    fontSize: 14,
+    fontWeight: "600",
   },
 
   logSubText: {
-    marginTop: 4,
-    fontSize: 13,
-    color: "#555"
-  },
-
-  logActions: {
-    flexDirection: "row",
-    justifyContent: "flex-end",
-    marginTop: 8
-  },
-
-  manageBtn: {
-    paddingVertical: 6,
-    paddingHorizontal: 12,
-    borderRadius: 6,
-    backgroundColor: "#ddd"
-  },
-
-  manageBtnDisabled: {
-    backgroundColor: "#ccc"
-  },
-
-  manageBtnText: {
-    fontSize: 13
-  },
-
-  manageBtnTextDisabled: {
-    color: "#888"
+    fontSize: 14,
+    color: "#555",
   },
 
   lockHintText: {
     marginTop: 6,
-    fontSize: 12,
-    color: "#b00020"
+    fontSize: 13,
+    color: "#B00020",
   },
 
   /* ======================
-     모달
+     🔥 기존 스타일에서 복구된 영역 (겹치지 않음)
   ====================== */
+
+  /* 모달 */
   modalBackground: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.45)",
     justifyContent: "center",
-    alignItems: "center"
+    alignItems: "center",
   },
 
   modalBox: {
@@ -143,61 +139,60 @@ export default StyleSheet.create({
     maxHeight: "90%",
     backgroundColor: "#fff",
     borderRadius: 14,
-    padding: 16
+    padding: 16,
   },
 
   modalTitle: {
     fontSize: 18,
     fontWeight: "bold",
-    marginBottom: 12
+    marginBottom: 12,
   },
 
+  /* 입력 */
   input: {
     borderWidth: 1,
     borderColor: "#ddd",
     borderRadius: 8,
     padding: 10,
-    marginBottom: 10
+    marginBottom: 10,
   },
 
   label: {
     fontSize: 13,
     fontWeight: "600",
     marginTop: 6,
-    marginBottom: 4
+    marginBottom: 4,
   },
 
   dateBox: {
     padding: 10,
     borderRadius: 8,
     backgroundColor: "#eee",
-    marginBottom: 10
+    marginBottom: 10,
   },
 
   disabledBox: {
-    backgroundColor: "#ddd"
+    backgroundColor: "#ddd",
   },
 
-  /* ======================
-     라디오
-  ====================== */
+  /* 라디오 */
   sectionTitle: {
     marginTop: 12,
     marginBottom: 6,
     fontSize: 14,
-    fontWeight: "bold"
+    fontWeight: "bold",
   },
 
   radioGroup: {
     flexDirection: "row",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
 
   radioItem: {
     flexDirection: "row",
     alignItems: "center",
     marginRight: 12,
-    marginBottom: 6
+    marginBottom: 6,
   },
 
   radioOuter: {
@@ -208,26 +203,24 @@ export default StyleSheet.create({
     borderColor: "#666",
     justifyContent: "center",
     alignItems: "center",
-    marginRight: 6
+    marginRight: 6,
   },
 
   radioInner: {
     width: 10,
     height: 10,
     borderRadius: 5,
-    backgroundColor: "#333"
+    backgroundColor: "#333",
   },
 
   radioLabel: {
-    fontSize: 13
+    fontSize: 13,
   },
 
-  /* ======================
-     요일 선택
-  ====================== */
+  /* 요일 */
   weekdayRow: {
     flexDirection: "row",
-    flexWrap: "wrap"
+    flexWrap: "wrap",
   },
 
   weekdayChip: {
@@ -236,66 +229,51 @@ export default StyleSheet.create({
     borderRadius: 14,
     backgroundColor: "#eee",
     marginRight: 6,
-    marginBottom: 6
+    marginBottom: 6,
   },
 
   weekdayChipActive: {
-    backgroundColor: "#cce4ff"
+    backgroundColor: "#cce4ff",
   },
 
-  /* ======================
-     시간 선택
-  ====================== */
+  /* 시간 */
   timeBox: {
     padding: 10,
     borderRadius: 8,
     backgroundColor: "#eee",
-    marginBottom: 6
+    marginBottom: 6,
   },
 
   timeText: {
-    fontSize: 14
+    fontSize: 14,
   },
 
-  /* ======================
-     버튼
-  ====================== */
+  /* 모달 버튼 */
   modalButtons: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginTop: 14
+    marginTop: 14,
   },
 
   cancelBtn: {
-    padding: 10
+    padding: 10,
   },
 
   addBtn: {
-    padding: 10
+    padding: 10,
   },
 
   deleteBtnBox: {
-    padding: 10
+    padding: 10,
   },
 
   deleteBtnText: {
-    color: "#b00020"
+    color: "#b00020",
   },
 
-  lockHintText: {
-  fontSize: 12,
-  color: "#999",
-  marginTop: 4
-  },
   memberItem: {
     padding: 12,
     borderBottomWidth: 1,
-    borderColor: "#eee"
+    borderColor: "#eee",
   },
-  logDone: {
-    backgroundColor: "#e6fffa"
-  },
-  logCanceled: {
-    backgroundColor: "#ffecec"
-  }
 });

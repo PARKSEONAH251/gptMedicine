@@ -1,41 +1,44 @@
-// style/favorite.styles.js
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
   container: {
     flex: 1,
-    padding: 16,
+    backgroundColor: "#FFF",
+    padding: 20,
   },
 
   deleteButton: {
-    position: "absolute",
-    right: 12,
-    top: 12,
-    width: 44,
-    height: 44,
-    borderRadius: 22,
-    backgroundColor: "#ff4d4f",
-    alignItems: "center",
+    alignSelf: "flex-end",
+    width: 36,
+    height: 36,
+    borderRadius: 18,
+    backgroundColor: "#FFECEC",
     justifyContent: "center",
-    zIndex: 20,
+    alignItems: "center",
+    marginBottom: 10,
   },
 
   deleteText: {
-    color: "#fff",
-    fontSize: 22,
-    fontWeight: "bold",
-    lineHeight: 22,
+    fontSize: 18,
+    fontWeight: "700",
+    color: "#B00020",
+  },
+
+  card: {
+    backgroundColor: "#F4F4F4",
+    borderRadius: 18,
+    padding: 20,
   },
 
   title: {
-    fontSize: 18,
-    fontWeight: "bold",
-    marginTop: 56,
-    marginBottom: 12,
+    fontSize: 20,
+    fontWeight: "700",
+    marginBottom: 14,
   },
 
   content: {
     fontSize: 15,
     lineHeight: 22,
+    color: "#333",
   },
 });

@@ -8,7 +8,8 @@ import {
   ActivityIndicator,
   Modal,
   TextInput,
-  ScrollView
+  ScrollView,
+  Image,
 } from "react-native";
 import { Calendar } from "react-native-calendars";
 import DateTimePicker from "@react-native-community/datetimepicker";
@@ -21,98 +22,128 @@ export default function CalendarScreen() {
 
   return (
     <View style={styles.container}>
-      {/* 헤더 */}
-      <View style={styles.header}>
-        {c.isGuardianView && (
-          <TouchableOpacity
-            style={styles.headerButton}
-            onPress={c.exitGuardianView}
-          >
-            <Text>←</Text>
-          </TouchableOpacity>
-        )}
-
-        <Text style={styles.headerTitle}>
-          {c.isGuardianView ? "피보호자 캘린더" : "캘린더"}
-        </Text>
-
-        <View style={styles.headerButtonGroup}>
-          {c.user.role === "protector" && (
-            <TouchableOpacity
-              style={styles.headerButton}
-              onPress={c.loadMembers}
-            >
-              <Text>👥</Text>
-            </TouchableOpacity>
-          )}
-
-          <TouchableOpacity
-            style={styles.headerButton}
-            onPress={c.loadSchedules}
-          >
-            <Text>📋</Text>
-          </TouchableOpacity>
-
-          {!c.isGuardianView && (
-            <TouchableOpacity
-              style={styles.headerButton}
-              onPress={() => c.setShowAddModal(true)}
-            >
-              <Text>＋</Text>
-            </TouchableOpacity>
-          )}
-        </View>
-      </View>
-
-      {/* 캘린더 */}
-      <Calendar
-        onDayPress={(day) => c.setSelectedDate(day.dateString)}
-        markedDates={{ [c.selectedDate]: { selected: true } }}
+      {/* 상단 패턴 */}
+      <Image
+        source={require("../../public/image/Primary_Pattern.png")}
+        style={styles.topPattern}
+        resizeMode="stretch"
       />
 
-      <Text style={styles.dateTitle}>{c.selectedDate} 복용 예정 목록</Text>
-
-      {/* 로그 리스트 */}
-      {c.loading ? (
-        <ActivityIndicator />
-      ) : (
-        <FlatList
-          data={c.logs}
-          keyExtractor={(item) => item._id}
-          ListEmptyComponent={<Text style={styles.emptyText}>복용 예정 약이 없습니다</Text>}
-          renderItem={({ item }) => (
-            <View
-              style={[
-                styles.logItem,
-                item.status === 1 && styles.logDone,
-                item.status === 0 && styles.logCanceled
-              ]}
+      {/* 실제 콘텐츠 */}
+      <View style={styles.content}>
+        {/* 헤더 */}
+        <View style={styles.header}>
+          {c.isGuardianView ? (
+            <TouchableOpacity
+              style={styles.headerButton}
+              onPress={c.exitGuardianView}
             >
-              {/* 1) 복용 토글 영역 */}
-              <TouchableOpacity onPress={() => c.confirmToggleLog(item)}>
-                <View style={styles.logRow}>
-                  <Text style={styles.logTime}>{item.planned_time}</Text>
-                  <Text style={styles.logStatus}>
-                    {item.status === 1 ? "복용" : item.status === 0 ? "취소" : "미복용"}
-                  </Text>
-                </View>
-
-                <Text style={styles.logSubText}>
-                  {item.medicine_name || ""}
-                  {item.method ? ` · ${item.method}` : ""}
-                </Text>
-              </TouchableOpacity>
-
-              {/* 잠김 안내 */}
-              {c.isLocked && (
-                <Text style={styles.lockHintText}>
-                  이 스케줄은 보호자에 의해 잠겨 있습니다
-                </Text>
-              )}
-            </View>
+              <Text style={styles.headerButtonText}>←</Text>
+            </TouchableOpacity>
+          ) : (
+            <View style={{ width: 44 }} />
           )}
+
+          <Text style={styles.headerTitle}>
+            {c.isGuardianView ? "피보호자 캘린더" : "캘린더"}
+          </Text>
+
+          <View style={styles.headerButtonGroup}>
+            {c.user.role === "protector" && (
+              <TouchableOpacity
+                style={styles.headerButton}
+                onPress={c.loadMembers}
+              >
+                <Text style={styles.headerButtonText}>👥</Text>
+              </TouchableOpacity>
+            )}
+
+            <TouchableOpacity
+              style={styles.headerButton}
+              onPress={c.loadSchedules}
+            >
+              <Text style={styles.headerButtonText}>📋</Text>
+            </TouchableOpacity>
+
+            {!c.isGuardianView && (
+              <TouchableOpacity
+                style={styles.headerButton}
+                onPress={() => c.setShowAddModal(true)}
+              >
+                <Text style={styles.headerButtonText}>＋</Text>
+              </TouchableOpacity>
+            )}
+          </View>
+        </View>
+
+        {/* 캘린더 */}
+        <Calendar
+          onDayPress={(day) => c.setSelectedDate(day.dateString)}
+          markedDates={{ [c.selectedDate]: { selected: true } }}
+          style={styles.calendarBox}
         />
-      )}
+
+        <Text style={styles.dateTitle}>
+          {c.selectedDate} 복용 예정 목록
+        </Text>
+
+        {/* 로그 리스트 */}
+        {c.loading ? (
+          <ActivityIndicator size="large" />
+        ) : (
+          <FlatList
+            data={c.logs}
+            keyExtractor={(item) => item._id}
+            ListEmptyComponent={
+              <Text style={styles.emptyText}>
+                복용 예정 약이 없습니다
+              </Text>
+            }
+            renderItem={({ item }) => (
+              <View
+                style={[
+                  styles.logItem,
+                  item.status === 1 && styles.logDone,
+                  item.status === 0 && styles.logCanceled,
+                ]}
+              >
+                <TouchableOpacity onPress={() => c.confirmToggleLog(item)}>
+                  <View style={styles.logRow}>
+                    <Text style={styles.logTime}>
+                      {item.planned_time}
+                    </Text>
+                    <Text style={styles.logStatus}>
+                      {item.status === 1
+                        ? "복용"
+                        : item.status === 0
+                        ? "취소"
+                        : "미복용"}
+                    </Text>
+                  </View>
+
+                  <Text style={styles.logSubText}>
+                    {item.medicine_name || ""}
+                    {item.method ? ` · ${item.method}` : ""}
+                  </Text>
+                </TouchableOpacity>
+
+                {c.isLocked && (
+                  <Text style={styles.lockHintText}>
+                    보호자에 의해 잠긴 스케줄입니다
+                  </Text>
+                )}
+              </View>
+            )}
+          />
+        )}
+      </View>
+
+      {/* 하단 패턴 */}
+      <Image
+        source={require("../../public/image/pattern.png")}
+        style={styles.bottomPattern}
+        resizeMode="stretch"
+      />
 
       {/* ======================
           스케줄 추가 모달

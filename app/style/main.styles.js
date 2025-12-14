@@ -3,116 +3,156 @@ import { StyleSheet } from "react-native";
 export default StyleSheet.create({
   container: {
     flex: 1,
-    backgroundColor: "#ffffff",
-    padding: 20,
+    backgroundColor: "#FFF",
   },
+
+  /* 패턴 */
+  topPattern: {
+    width: "100%",
+    height: 120,
+  },
+  bottomPattern: {
+    width: "100%",
+    height: 140,
+  },
+
+  content: {
+    flex: 1,
+    paddingHorizontal: 24,
+    paddingTop: 16,
+    paddingBottom: 20,
+  },
+
+  /* 헤더 */
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
-    marginBottom: 15,
+    alignItems: "center",
+    marginBottom: 20,
   },
-  headerButton: {
+
+  myPageButton: {
+    paddingHorizontal: 18,
+    paddingVertical: 10,
+    borderRadius: 14,
+    backgroundColor: "#F4F4F4",
+  },
+  myPageText: {
     fontSize: 16,
-    fontWeight: "bold",
-    color: "#4a90e2",
+    fontWeight: "700",
+  },
+
+  favoriteNavButton: {
+    paddingHorizontal: 18,
+    paddingVertical: 10,
+    borderRadius: 20,
+    backgroundColor: "#000",
+  },
+  favoriteNavText: {
+    color: "#FFF",
+    fontSize: 15,
+    fontWeight: "700",
+  },
+
+  /* 인사 카드 */
+  greetingCard: {
+    backgroundColor: "#F4F4F4",
+    borderRadius: 18,
+    padding: 20,
+    marginBottom: 24,
   },
   userGreeting: {
     fontSize: 22,
-    fontWeight: "bold",
-    marginBottom: 5,
+    fontWeight: "700",
+    marginBottom: 6,
   },
   todayMessage: {
     fontSize: 16,
-    marginBottom: 20,
+    color: "#555",
   },
+
+  /* 입력 */
   inputBox: {
-    borderWidth: 1,
-    borderColor: "#bbb",
-    padding: 12,
-    borderRadius: 10,
-    marginBottom: 12,
+    backgroundColor: "#F4F4F4",
+    padding: 18,
+    borderRadius: 16,
+    fontSize: 16,
+    marginBottom: 16,
   },
-  buttonRow: {
-    flexDirection: "row",
-    justifyContent: "space-between",
-  },
-  photoButton: {
-    padding: 10,
-    backgroundColor: "#eee",
-    borderRadius: 8,
-  },
-  sendButton: {
-    padding: 10,
-    backgroundColor: "#4a90e2",
-    borderRadius: 8,
-  },
-  sendText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
-  calendarButton: {
-    marginTop: 20,
-    padding: 12,
-    backgroundColor: "#4a90e2",
-    borderRadius: 10,
-    alignItems: "center",
-  },
-  calendarButtonText: {
-    color: "#fff",
-    fontWeight: "bold",
-  },
+
+  /* 이미지 */
   imagePreviewBox: {
     flexDirection: "row",
     alignItems: "center",
-    marginBottom: 10,
+    marginBottom: 16,
   },
   imagePreview: {
-    width: 60,
-    height: 60,
-    borderRadius: 8,
-    marginRight: 10,
+    width: 70,
+    height: 70,
+    borderRadius: 12,
+    marginRight: 12,
   },
   removeImage: {
-    color: "red",
-    fontWeight: "bold",
+    color: "#D93025",
+    fontSize: 15,
+    fontWeight: "700",
   },
-  modalBackground: {
-    flex: 1,
-    justifyContent: "center",
-    backgroundColor: "rgba(0,0,0,0.4)",
-  },
-  modalBox: {
-    margin: 30,
-    padding: 20,
-    backgroundColor: "#fff",
-    borderRadius: 12,
-  },
-  modalTitle: {
-    fontSize: 20,
-    fontWeight: "bold",
-    marginBottom: 10,
-  },
-  modalButtonRow: {
+
+  /* 버튼 */
+  buttonRow: {
     flexDirection: "row",
-    justifyContent: "space-around",
-    marginTop: 15,
+    marginBottom: 24,
   },
-  acceptButton: {
-    padding: 10,
-    backgroundColor: "#4CAF50",
-    borderRadius: 10,
+  photoButton: {
+    flex: 1,
+    marginRight: 10,
+    paddingVertical: 14,
+    borderRadius: 16,
+    backgroundColor: "#EDEDED",
+    alignItems: "center",
+    justifyContent: "center",
   },
-  declineButton: {
-    padding: 10,
-    backgroundColor: "#E53935",
-    borderRadius: 10,
+  buttonIcon: {
+    width: 26,
+    height: 26,
+    marginBottom: 6,
   },
-  acceptText: {
-    color: "#fff",
-    fontWeight: "bold",
+  photoText: {
+    fontSize: 15,
+    fontWeight: "600",
   },
-  declineText: {
-    color: "#fff",
-    fontWeight: "bold",
+  sendButton: {
+    flex: 1,
+    marginLeft: 10,
+    paddingVertical: 16,
+    borderRadius: 16,
+    backgroundColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+  sendText: {
+    color: "#FFF",
+    fontSize: 15,
+    fontWeight: "700",
+  },
+
+  /* 캘린더 */
+  calendarButton: {
+    flexDirection: "row",
+    alignItems: "center",
+    justifyContent: "center",
+    paddingVertical: 18,
+    borderRadius: 18,
+    backgroundColor: "#000",
+  },
+  calendarIcon: {
+    width: 22,
+    height: 22,
+    marginRight: 8,
+  },
+  calendarButtonText: {
+    color: "#FFF",
+    fontSize: 16,
+    fontWeight: "700",
   },
 });

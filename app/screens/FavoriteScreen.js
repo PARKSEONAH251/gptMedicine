@@ -20,12 +20,10 @@ export default function FavoriteScreen({ navigation, route }) {
     setList(res);
   };
 
-  // ✅ 화면에 들어오거나 돌아올 때마다 목록 갱신
   useFocusEffect(
     useCallback(() => {
       loadFavorites();
 
-      // refresh 플래그 정리
       if (route.params?.refresh) {
         navigation.setParams({ refresh: false });
       }
@@ -45,14 +43,27 @@ export default function FavoriteScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      <Text style={styles.header}>⭐ 즐겨찾기</Text>
+      {/* 헤더 */}
+      <View style={styles.headerRow}>
+        <Text style={styles.header}>즐겨찾기</Text>
+      </View>
 
       <FlatList
         data={list}
         keyExtractor={(item) => item._id}
         renderItem={renderItem}
+        contentContainerStyle={
+          list.length === 0 && styles.emptyContainer
+        }
         ListEmptyComponent={
-          <Text style={styles.empty}>저장된 즐겨찾기가 없습니다.</Text>
+          <View style={styles.emptyWrap}>
+            <View style={styles.emptyIconBox}>
+              <Text style={styles.emptyIconText}>!</Text>
+            </View>
+            <Text style={styles.emptyText}>
+              즐겨찾기한 데이터가{"\n"}현재 없습니다.
+            </Text>
+          </View>
         }
       />
     </View>

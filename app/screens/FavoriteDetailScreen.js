@@ -26,25 +26,25 @@ export default function FavoriteDetailScreen({ route, navigation }) {
 
   const onDelete = async () => {
     await ApiService.delete(`/api/favorite/${id}`, token);
-
-    navigation.navigate("Favorite", {
-      refresh: true,
-    });
+    navigation.navigate("Favorite", { refresh: true });
   };
 
   if (!item) return null;
 
   return (
     <View style={styles.container}>
+      {/* 삭제 버튼 */}
       <TouchableOpacity style={styles.deleteButton} onPress={onDelete}>
         <Text style={styles.deleteText}>✕</Text>
       </TouchableOpacity>
 
       <ScrollView>
-        <Text style={styles.title}>{item.title}</Text>
-        <Text style={styles.content}>
-          {item.content?.answer || ""}
-        </Text>
+        <View style={styles.card}>
+          <Text style={styles.title}>{item.title}</Text>
+          <Text style={styles.content}>
+            {item.content?.answer || ""}
+          </Text>
+        </View>
       </ScrollView>
     </View>
   );

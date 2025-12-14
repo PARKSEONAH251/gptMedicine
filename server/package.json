@@ -1,0 +1,31 @@
+{
+  "name": "GPTServer",
+  "version": "1.0.0",
+  "type": "module",
+  "main": "app.js",
+  "scripts": {
+    "start": "node app.js",
+    "dev": "nodemon app.js",
+    "cleanup": "node utils/cleanup.js"
+  },
+  "dependencies": {
+    "@react-native-async-storage/async-storage": "^2.2.0",
+    "cors": "^2.8.5",
+    "crypto": "^1.0.1",
+    "dotenv": "^16.4.0",
+    "express": "^4.19.0",
+    "jsonwebtoken": "^9.0.2",
+    "mongoose": "^8.3.0",
+    "morgan": "^1.10.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
+    "node-tesseract-ocr": "^2.2.1",
+    "openai": "^4.76.0",
+    "tesseract.js": "^6.0.1",
+    "winston": "^3.13.0",
+    "winston-daily-rotate-file": "^4.7.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.1.0"
+  }
+}

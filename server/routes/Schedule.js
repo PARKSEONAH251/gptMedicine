@@ -7,9 +7,6 @@ import mongoose from "mongoose";
 
 const router = express.Router();
 
-/* =========================
-   날짜 유틸
-========================= */
 function* dateRange(start, end) {
   let cur = new Date(start + "T00:00:00Z");
   const last = new Date(end + "T00:00:00Z");
@@ -20,9 +17,6 @@ function* dateRange(start, end) {
   }
 }
 
-/* =========================
-   주기 판별 (Schedule 모델 기준)
-========================= */
 function isValidCycle(dateStr, schedule) {
   const d = new Date(dateStr + "T00:00:00Z");
 
@@ -39,9 +33,6 @@ function isValidCycle(dateStr, schedule) {
   return true;
 }
 
-/* =========================
-   스케줄 생성 + 로그 선생성
-========================= */
 router.post("/create", verifyToken, async (req, res) => {
   try {
     const owner_id = req.user.userID;
@@ -60,7 +51,6 @@ router.post("/create", verifyToken, async (req, res) => {
       return res.status(400).json({ message: "필수 항목 누락" });
     }
 
-    /* 1️⃣ Schedule 생성 */
     const schedule = await Schedule.create({
       owner_id,
       family_id: req.user.family_id || null,
@@ -74,7 +64,6 @@ router.post("/create", verifyToken, async (req, res) => {
       is_active: true
     });
 
-    /* 2️⃣ ScheduleLog 선생성 */
     const logs = [];
 
     for (const date of dateRange(start_date, end_date)) {
@@ -112,40 +101,26 @@ router.post("/create", verifyToken, async (req, res) => {
 router.get("/all", verifyToken, async (req, res) => {
   const { targetUser } = req.query;
 
-  const ownerID =
-    req.user.role === "protector" && targetUser
-      ? targetUser
-      : req.user.userID;
+  const ownerID = targetUser || req.user.userID;
 
   const schedules = await Schedule.find({
     owner_id: ownerID,
     is_active: true
   }).lean();
 
-    console.log(
-    "[SCHEDULE LIST]",
-    schedules.map(s => ({
-      id: s._id,
-      type: typeof s._id,
-      string: s._id.toString()
-    }))
-  );
-
   res.json(schedules);
 });
 
-/* =========================
-   특정 날짜 로그 조회 (캘린더 기준)
-========================= */
+
 router.get("/logs", verifyToken, async (req, res) => {
   const { date, targetUser } = req.query;
 
-  const userID =
-    req.user.role === "protector" && targetUser
-      ? targetUser
-      : req.user.userID;
+  if (!date) {
+    return res.status(400).json({ message: "date required" });
+  }
 
-  // 1️⃣ 로그 조회
+  const userID = targetUser || req.user.userID;
+
   const logs = await ScheduleLog.find({
     userID,
     date
@@ -155,12 +130,8 @@ router.get("/logs", verifyToken, async (req, res) => {
     return res.json([]);
   }
 
-  // 2️⃣ schedule_id 수집
-  const scheduleIds = [
-    ...new Set(logs.map((l) => l.schedule_id))
-  ];
+  const scheduleIds = [...new Set(logs.map(l => l.schedule_id))];
 
-  // 3️⃣ Schedule 조회
   const schedules = await Schedule.find({
     _id: { $in: scheduleIds }
   })
@@ -168,26 +139,19 @@ router.get("/logs", verifyToken, async (req, res) => {
     .lean();
 
   const scheduleMap = {};
-  schedules.forEach((s) => {
+  schedules.forEach(s => {
     scheduleMap[s._id.toString()] = s;
   });
 
-  // 4️⃣ 로그에 medicine_name 합치기
-  const merged = logs.map((log) => ({
+  const merged = logs.map(log => ({
     ...log,
-    medicine_name:
-      scheduleMap[log.schedule_id]?.medicine_name || "",
-    method:
-      scheduleMap[log.schedule_id]?.method || ""
+    medicine_name: scheduleMap[log.schedule_id]?.medicine_name || "",
+    method: scheduleMap[log.schedule_id]?.method || ""
   }));
 
   res.json(merged);
 });
 
-
-/* =========================
-   복용 체크
-========================= */
 router.post("/logs/toggle", verifyToken, async (req, res) => {
   const { log_id } = req.body;
 
@@ -202,9 +166,6 @@ router.post("/logs/toggle", verifyToken, async (req, res) => {
   res.json(log);
 });
 
-/* =========================
-   스케줄 수정 → 로그 전면 재생성
-========================= */
 router.put("/:id", verifyToken, async (req, res) => {
   const schedule = await Schedule.findById(req.params.id);
   if (!schedule) {
@@ -269,16 +230,11 @@ router.put("/:id", verifyToken, async (req, res) => {
   res.json({ message: "스케줄 수정 완료" });
 });
 
-/* =========================
-   스케줄 단건 조회 (수정 팝업용)
-========================= */
 router.get("/:id", verifyToken, async (req, res) => {
   const schedule = await Schedule.findById(req.params.id).lean();
   if (!schedule) {
     return res.status(404).json({ message: "스케줄 없음" });
   }
-
-  // 같은 가족만 조회 가능
   if (
     String(schedule.family_id) !== String(req.user.family_id) &&
     req.user.role !== "protector"
@@ -288,9 +244,6 @@ router.get("/:id", verifyToken, async (req, res) => {
   res.json(schedule);
 });
 
-/* =========================
-   스케줄 삭제 (보호자 lock 반영)
-========================= */
 router.delete("/:id", verifyToken, async (req, res) => {
   const schedule = await Schedule.findById(req.params.id);
   if (!schedule) {
@@ -311,12 +264,9 @@ router.delete("/:id", verifyToken, async (req, res) => {
     });
   }
   
-
-  // 스케줄 비활성화
   schedule.is_active = false;
   await schedule.save();
 
-  //로그 전부 삭제 (cascade)
   await ScheduleLog.deleteMany({
     schedule_id: schedule._id.toString()
   });

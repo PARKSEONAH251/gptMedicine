@@ -8,7 +8,6 @@ export default StyleSheet.create({
     padding: 20,
   },
 
-  /* ===== 헤더 ===== */
   headerRow: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -35,7 +34,6 @@ export default StyleSheet.create({
     fontWeight: "700",
   },
 
-  /* ===== 리스트 ===== */
   box: {
     padding: 18,
     borderRadius: 16,
@@ -48,7 +46,6 @@ export default StyleSheet.create({
     fontWeight: "600",
   },
 
-  /* ===== 빈 상태 ===== */
   emptyContainer: {
     flexGrow: 1,
     justifyContent: "center",

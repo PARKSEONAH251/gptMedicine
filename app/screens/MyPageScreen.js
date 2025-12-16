@@ -18,8 +18,6 @@ export default function MyPageScreen() {
     user,
     groups,
     loading,
-
-    // 비밀번호
     showPwModal,
     setShowPwModal,
     oldPw,
@@ -29,15 +27,11 @@ export default function MyPageScreen() {
     newPw2,
     setNewPw2,
     changePassword,
-
-    // 그룹 생성
     showCreateModal,
     setShowCreateModal,
     newGroupName,
     setNewGroupName,
     createGroup,
-
-    // 초대
     inviteTarget,
     setInviteTarget,
     inviteMember,
@@ -45,14 +39,10 @@ export default function MyPageScreen() {
     setShowInviteModal,
     inviteFamilyId,
     setInviteFamilyId,
-
-    // 그룹 관리
     toggleLock,
     kickMember,
     deleteGroup,
     leaveGroup,
-
-    // 기타
     handleLogout,
   } = useMyPageScript();
 
@@ -66,11 +56,7 @@ export default function MyPageScreen() {
 
   return (
     <View style={styles.container}>
-      {/* ======================
-          UI 영역
-      ====================== */}
       <ScrollView>
-        {/* 내 정보 */}
         <View style={styles.infoBox}>
           <Text style={styles.title}>내 정보</Text>
           <Text>ID: {user.userID}</Text>
@@ -85,7 +71,6 @@ export default function MyPageScreen() {
           </TouchableOpacity>
         </View>
 
-        {/* 그룹 관리 */}
         <Text style={styles.sectionTitle}>그룹 관리</Text>
 
         {loading ? (
@@ -179,7 +164,6 @@ export default function MyPageScreen() {
           </TouchableOpacity>
         )}
 
-        {/* 로그아웃 */}
         <TouchableOpacity
           style={styles.logoutButton}
           onPress={handleLogout}
@@ -188,11 +172,6 @@ export default function MyPageScreen() {
         </TouchableOpacity>
       </ScrollView>
 
-      {/* ======================
-          Modal 영역 (하단 집중)
-      ====================== */}
-
-      {/* 비밀번호 변경 */}
       <Modal transparent visible={showPwModal} animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalBox}>
@@ -241,7 +220,6 @@ export default function MyPageScreen() {
         </View>
       </Modal>
 
-      {/* 그룹 생성 */}
       <Modal transparent visible={showCreateModal} animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalBox}>
@@ -273,7 +251,6 @@ export default function MyPageScreen() {
         </View>
       </Modal>
 
-      {/* 구성원 초대 */}
       <Modal transparent visible={showInviteModal} animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalBox}>

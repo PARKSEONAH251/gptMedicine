@@ -33,7 +33,6 @@ export default function FavoriteDetailScreen({ route, navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* 삭제 버튼 */}
       <TouchableOpacity style={styles.deleteButton} onPress={onDelete}>
         <Text style={styles.deleteText}>✕</Text>
       </TouchableOpacity>

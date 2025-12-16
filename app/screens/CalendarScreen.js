@@ -22,16 +22,13 @@ export default function CalendarScreen() {
 
   return (
     <View style={styles.container}>
-      {/* 상단 패턴 */}
       <Image
         source={require("../../public/image/Primary_Pattern.png")}
         style={styles.topPattern}
         resizeMode="stretch"
       />
 
-      {/* 실제 콘텐츠 */}
       <View style={styles.content}>
-        {/* 헤더 */}
         <View style={styles.header}>
           {c.isGuardianView ? (
             <TouchableOpacity
@@ -76,7 +73,6 @@ export default function CalendarScreen() {
           </View>
         </View>
 
-        {/* 캘린더 */}
         <Calendar
           onDayPress={(day) => c.setSelectedDate(day.dateString)}
           markedDates={{ [c.selectedDate]: { selected: true } }}
@@ -87,11 +83,11 @@ export default function CalendarScreen() {
           {c.selectedDate} 복용 예정 목록
         </Text>
 
-        {/* 로그 리스트 */}
         {c.loading ? (
           <ActivityIndicator size="large" />
         ) : (
           <FlatList
+            key={`${c.targetUser}_${c.selectedDate}`}   // 🔥 핵심
             data={c.logs}
             keyExtractor={(item) => item._id}
             ListEmptyComponent={
@@ -107,7 +103,10 @@ export default function CalendarScreen() {
                   item.status === 0 && styles.logCanceled,
                 ]}
               >
-                <TouchableOpacity onPress={() => c.confirmToggleLog(item)}>
+                <TouchableOpacity
+                  disabled={c.isGuardianView}
+                  onPress={() => !c.isGuardianView && c.confirmToggleLog(item)}
+                  >
                   <View style={styles.logRow}>
                     <Text style={styles.logTime}>
                       {item.planned_time}
@@ -138,16 +137,12 @@ export default function CalendarScreen() {
         )}
       </View>
 
-      {/* 하단 패턴 */}
       <Image
         source={require("../../public/image/pattern.png")}
         style={styles.bottomPattern}
         resizeMode="stretch"
       />
 
-      {/* ======================
-          스케줄 추가 모달
-      ====================== */}
       <Modal visible={c.showAddModal} transparent animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalBox}>
@@ -270,9 +265,7 @@ export default function CalendarScreen() {
         </View>
       </Modal>
 
-      {/* ======================
-          스케줄 관리(수정/삭제) 모달
-      ====================== */}
+
       <Modal visible={c.showEditModal} transparent animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalBox}>
@@ -443,9 +436,6 @@ export default function CalendarScreen() {
         </View>
       </Modal>
 
-      {/* ======================
-          보호자: 피보호자 선택 모달
-      ====================== */}
       <Modal visible={c.showMemberModal} transparent animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalBox}>

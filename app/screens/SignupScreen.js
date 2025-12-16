@@ -52,7 +52,6 @@ export default function SignupScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* 상단 패턴 */}
       <Image
         source={require("../../public/image/Primary_Pattern.png")}
         style={styles.topPattern}
@@ -67,8 +66,6 @@ export default function SignupScreen({ navigation }) {
         value={form.name}
         onChangeText={v => onChange("name", v)}
       />
-
-      {/* ID + 중복확인 */}
       <View style={styles.row}>
         <TextInput
           style={[styles.input, styles.flexInput]}

@@ -163,6 +163,56 @@ export default StyleSheet.create({
     fontSize: 16,
     fontWeight: "700",
   },
+  modalButtonRow: {
+  flexDirection: "row",
+  justifyContent: "space-between",
+  marginTop: 16,
+  },
 
-  /* ===== 기존 Modal 스타일은 그대로 사용 ===== */
+  saveButton: {
+    flex: 1,
+    marginRight: 6,
+    paddingVertical: 12,
+    borderRadius: 10,
+    backgroundColor: "#000",
+    alignItems: "center",
+  },
+
+  saveText: {
+    color: "#FFF",
+    fontWeight: "700",
+  },
+
+  cancelButton: {
+    flex: 1,
+    marginLeft: 6,
+    paddingVertical: 12,
+    borderRadius: 10,
+    backgroundColor: "#EDEDED",
+    alignItems: "center",
+  },
+
+  cancelText: {
+    fontWeight: "600",
+  },
+
+  modalBackground: {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: "rgba(0,0,0,0.45)",
+  justifyContent: "center",
+  alignItems: "center",
+  },
+
+  modalBox: {
+    width: "90%",
+    maxHeight: "85%",  
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    padding: 16,
+    alignSelf: "center",
+  },
 });

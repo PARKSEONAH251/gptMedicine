@@ -5,14 +5,12 @@ import styles from "../style/start.styles";
 export default function StartScreen({ navigation }) {
   return (
     <View style={styles.container}>
-      {/* 상단 패턴 */}
       <Image
         source={require("../../public/image/Primary_Pattern.png")}
         style={styles.topPattern}
         resizeMode="cover"
       />
 
-      {/* 중앙 콘텐츠 */}
       <View style={styles.centerContent}>
         <Image
           source={require("../../public/image/medicalsafe_logo.png")}
@@ -26,7 +24,6 @@ export default function StartScreen({ navigation }) {
         </Text>
       </View>
 
-      {/* 버튼 영역 */}
       <View style={styles.buttonArea}>
         <TouchableOpacity
           style={styles.primaryButton}
@@ -43,7 +40,6 @@ export default function StartScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* 하단 패턴 */}
       <Image
         source={require("../../public/image/pattern.png")}
         style={styles.bottomPattern}

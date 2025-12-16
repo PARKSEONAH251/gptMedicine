@@ -10,20 +10,14 @@ export default function useMyPageScript() {
   const [groups, setGroups] = useState([]);
   const [loading, setLoading] = useState(false);
 
-  /* ======================
-     비밀번호 변경
-  ====================== */
   const [showPwModal, setShowPwModal] = useState(false);
   const [oldPw, setOldPw] = useState("");
   const [newPw, setNewPw] = useState("");
   const [newPw2, setNewPw2] = useState("");
 
-  // 그룹 생성
   const [showCreateModal, setShowCreateModal] = useState(false);
   const [newGroupName, setNewGroupName] = useState("");
 
-  // 초대
-  // 초대 모달
   const [showInviteModal, setShowInviteModal] = useState(false);
   const [inviteTarget, setInviteTarget] = useState("");
 
@@ -52,9 +46,6 @@ export default function useMyPageScript() {
     }
   };
 
-  /* ======================
-     그룹 로드
-  ====================== */
   const loadGroups = async () => {
     try {
       setLoading(true);
@@ -70,9 +61,6 @@ export default function useMyPageScript() {
     }
   };
 
-  /* ======================
-     그룹 생성
-  ====================== */
   const createGroup = async () => {
     if (!newGroupName.trim()) {
       return Alert.alert("오류", "그룹명을 입력하세요.");
@@ -94,9 +82,6 @@ export default function useMyPageScript() {
     }
   };
 
-  /* ======================
-     구성원 초대
-  ====================== */
   const inviteMember = async (family_id) => {
     if (!inviteTarget.trim()) {
       return Alert.alert("오류", "초대할 사용자 ID를 입력하세요.");
@@ -122,9 +107,6 @@ export default function useMyPageScript() {
     }
   };
 
-  /* ======================
-     구성원 잠금
-  ====================== */
   const toggleLock = async (family_id, target_id, locked) => {
     await ApiService.post(
       "/api/family/lock",
@@ -134,9 +116,6 @@ export default function useMyPageScript() {
     loadGroups();
   };
 
-  /* ======================
-     구성원 삭제
-  ====================== */
   const kickMember = async (family_id, member_id) => {
     await ApiService.post(
       "/api/family/kick",
@@ -146,9 +125,6 @@ export default function useMyPageScript() {
     loadGroups();
   };
 
-  /* ======================
-     그룹 삭제
-  ====================== */
   const deleteGroup = async (family_id) => {
     await ApiService.delete(
       `/api/family/delete?family_id=${family_id}`,
@@ -157,9 +133,6 @@ export default function useMyPageScript() {
     loadGroups();
   };
 
-  /* ======================
-     그룹 탈퇴
-  ====================== */
   const leaveGroup = async (family_id) => {
     await ApiService.post("/api/family/leave", { family_id }, token);
     Alert.alert("완료", "그룹에서 탈퇴했습니다.");
@@ -168,9 +141,6 @@ export default function useMyPageScript() {
 
   const [inviteFamilyId, setInviteFamilyId] = useState(null);
 
-  /* ======================
-     로그아웃
-  ====================== */
   const handleLogout = () => {
     Alert.alert("로그아웃", "정말 로그아웃 하시겠습니까?", [
       { text: "취소", style: "cancel" },
@@ -186,8 +156,6 @@ export default function useMyPageScript() {
     user,
     groups,
     loading,
-
-    // 비밀번호
     showPwModal,
     setShowPwModal,
     oldPw,
@@ -197,31 +165,22 @@ export default function useMyPageScript() {
     newPw2,
     setNewPw2,
     changePassword,
-
-    // 그룹 생성
     showCreateModal,
     setShowCreateModal,
     newGroupName,
     setNewGroupName,
     createGroup,
-
-    // 초대
     inviteTarget,
     setInviteTarget,
     inviteMember,
     showInviteModal,
     setShowInviteModal,
-
     inviteFamilyId,
     setInviteFamilyId,
-
-    // 그룹 관리
     toggleLock,
     kickMember,
     deleteGroup,
     leaveGroup,
-
-    // 기타
     handleLogout,
   };
 }

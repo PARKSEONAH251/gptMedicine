@@ -1,9 +1,7 @@
 import { StyleSheet } from "react-native";
 
 export default StyleSheet.create({
-  /* ======================
-     기본 레이아웃 (신규 유지)
-  ====================== */
+
   container: {
     flex: 1,
     backgroundColor: "#FFF",
@@ -25,9 +23,6 @@ export default StyleSheet.create({
     paddingTop: 12,
   },
 
-  /* ======================
-     헤더 (신규 유지)
-  ====================== */
   header: {
     flexDirection: "row",
     alignItems: "center",
@@ -59,9 +54,6 @@ export default StyleSheet.create({
     fontWeight: "600",
   },
 
-  /* ======================
-     캘린더 / 리스트 (신규 유지)
-  ====================== */
   calendarBox: {
     borderRadius: 16,
     marginBottom: 16,
@@ -122,11 +114,6 @@ export default StyleSheet.create({
     color: "#B00020",
   },
 
-  /* ======================
-     🔥 기존 스타일에서 복구된 영역 (겹치지 않음)
-  ====================== */
-
-  /* 모달 */
   modalBackground: {
     flex: 1,
     backgroundColor: "rgba(0,0,0,0.45)",
@@ -148,7 +135,6 @@ export default StyleSheet.create({
     marginBottom: 12,
   },
 
-  /* 입력 */
   input: {
     borderWidth: 1,
     borderColor: "#ddd",
@@ -175,7 +161,6 @@ export default StyleSheet.create({
     backgroundColor: "#ddd",
   },
 
-  /* 라디오 */
   sectionTitle: {
     marginTop: 12,
     marginBottom: 6,
@@ -217,7 +202,6 @@ export default StyleSheet.create({
     fontSize: 13,
   },
 
-  /* 요일 */
   weekdayRow: {
     flexDirection: "row",
     flexWrap: "wrap",
@@ -236,7 +220,6 @@ export default StyleSheet.create({
     backgroundColor: "#cce4ff",
   },
 
-  /* 시간 */
   timeBox: {
     padding: 10,
     borderRadius: 8,
@@ -248,7 +231,6 @@ export default StyleSheet.create({
     fontSize: 14,
   },
 
-  /* 모달 버튼 */
   modalButtons: {
     flexDirection: "row",
     justifyContent: "space-between",

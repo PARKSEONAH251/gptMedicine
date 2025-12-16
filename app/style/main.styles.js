@@ -6,7 +6,6 @@ export default StyleSheet.create({
     backgroundColor: "#FFF",
   },
 
-  /* 패턴 */
   topPattern: {
     width: "100%",
     height: 120,
@@ -23,7 +22,6 @@ export default StyleSheet.create({
     paddingBottom: 20,
   },
 
-  /* 헤더 */
   header: {
     flexDirection: "row",
     justifyContent: "space-between",
@@ -54,7 +52,6 @@ export default StyleSheet.create({
     fontWeight: "700",
   },
 
-  /* 인사 카드 */
   greetingCard: {
     backgroundColor: "#F4F4F4",
     borderRadius: 18,
@@ -71,7 +68,6 @@ export default StyleSheet.create({
     color: "#555",
   },
 
-  /* 입력 */
   inputBox: {
     backgroundColor: "#F4F4F4",
     padding: 18,
@@ -80,7 +76,6 @@ export default StyleSheet.create({
     marginBottom: 16,
   },
 
-  /* 이미지 */
   imagePreviewBox: {
     flexDirection: "row",
     alignItems: "center",
@@ -98,7 +93,6 @@ export default StyleSheet.create({
     fontWeight: "700",
   },
 
-  /* 버튼 */
   buttonRow: {
     flexDirection: "row",
     marginBottom: 24,
@@ -136,7 +130,6 @@ export default StyleSheet.create({
     fontWeight: "700",
   },
 
-  /* 캘린더 */
   calendarButton: {
     flexDirection: "row",
     alignItems: "center",
@@ -154,5 +147,92 @@ export default StyleSheet.create({
     color: "#FFF",
     fontSize: 16,
     fontWeight: "700",
+  },
+
+  modalBackground: {
+  position: "absolute",
+  top: 0,
+  left: 0,
+  right: 0,
+  bottom: 0,
+  backgroundColor: "rgba(0,0,0,0.45)",
+  justifyContent: "center",
+  alignItems: "center",
+  },
+
+  modalBox: {
+    width: "90%",
+    maxHeight: "85%",  
+    backgroundColor: "#fff",
+    borderRadius: 14,
+    padding: 16,
+    alignSelf: "center",
+  },
+
+  inviteBox: {
+    backgroundColor: "#F4F4F4",
+    borderRadius: 14,
+    paddingVertical: 14,
+    paddingHorizontal: 14,
+    marginBottom: 12,
+  },
+
+  inviteName: {
+    fontSize: 16,
+    fontWeight: "800",
+    color: "#111",
+    marginBottom: 10,
+  },
+
+  inviteButtonRow: {
+    flexDirection: "row",
+    justifyContent: "space-between",
+  },
+
+  acceptButton: {
+    flex: 1,
+    marginRight: 8,
+    paddingVertical: 12,
+    borderRadius: 12,
+    backgroundColor: "#000",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  acceptText: {
+    color: "#FFF",
+    fontSize: 14,
+    fontWeight: "800",
+  },
+
+  declineButton: {
+    flex: 1,
+    marginLeft: 8,
+    paddingVertical: 12,
+    borderRadius: 12,
+    backgroundColor: "#E0E0E0",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  declineText: {
+    color: "#111",
+    fontSize: 14,
+    fontWeight: "800",
+  },
+
+  closeButton: {
+    marginTop: 10,
+    paddingVertical: 14,
+    borderRadius: 12,
+    backgroundColor: "#EDEDED",
+    alignItems: "center",
+    justifyContent: "center",
+  },
+
+  closeText: {
+    fontSize: 14,
+    fontWeight: "800",
+    color: "#111",
   },
 });

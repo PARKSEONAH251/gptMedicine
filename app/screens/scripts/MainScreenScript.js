@@ -56,9 +56,6 @@ export default function useMainScreenLogic(navigation) {
   return res.json();
 };
 
-  /* ================================
-     초기 로딩
-  ================================ */
   useEffect(() => {
     loadUser();
     loadInvites();
@@ -88,9 +85,6 @@ export default function useMainScreenLogic(navigation) {
     }
   };
 
-  /* ================================
-     이미지 선택 (RN CLI)
-  ================================ */
   const onPickImage = async () => {
     const ok = await ensureImagePermission();
     if (!ok) {
@@ -138,6 +132,37 @@ export default function useMainScreenLogic(navigation) {
     );
   };
 
+  const acceptInvite = async (family_id) => {
+    try {
+      await ApiService.post(
+        "/api/family/invite/accept",
+        { family_id },
+        token
+      );
+      Alert.alert("가입 완료", "그룹에 가입되었습니다.");
+
+      setShowInviteModal(false);
+      loadUser();
+      loadInvites();
+    } catch {
+      Alert.alert("오류", "초대 수락 실패");
+    }
+  };
+
+  const rejectInvite = async (family_id) => {
+    try {
+      await ApiService.post(
+        "/api/family/invite/reject",
+        { family_id },
+        token
+      );
+      Alert.alert("거절 완료");
+      loadInvites();
+    } catch {
+      Alert.alert("오류", "초대 거절 실패");
+    }
+  };
+
   const ensureImagePermission = async () => {
     if (Platform.OS !== "android") return true;
 
@@ -148,9 +173,6 @@ export default function useMainScreenLogic(navigation) {
     return granted === PermissionsAndroid.RESULTS.GRANTED;
   };
 
-  /* ================================
-     전송 UX 분기
-  ================================ */
   const onSendChat = async () => {
     if (!inputText.trim() && !attachedImage) {
       Alert.alert("안내", "질문을 입력하거나 이미지를 선택하세요.");
@@ -189,6 +211,9 @@ export default function useMainScreenLogic(navigation) {
     setInputText,
     setAttachedImage,
     setShowInviteModal,
+
+    acceptInvite,
+    rejectInvite,
 
     logout,
     onPickImage,

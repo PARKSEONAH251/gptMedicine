@@ -25,7 +25,7 @@ export default function MainScreen({ navigation }) {
     setAttachedImage,
     setShowInviteModal,
 
-    acceptInvite,
+    acceptInvite, 
     rejectInvite,
     onPickImage,
     onSendChat,
@@ -37,16 +37,13 @@ export default function MainScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* 상단 패턴 (고정) */}
       <Image
         source={require("../../public/image/Primary_Pattern.png")}
         style={styles.topPattern}
         resizeMode="stretch"
       />
 
-      {/* 실제 콘텐츠 영역 */}
       <View style={styles.content}>
-        {/* 헤더 */}
         <View style={styles.header}>
           <TouchableOpacity
             style={styles.myPageButton}
@@ -63,13 +60,11 @@ export default function MainScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        {/* 인사 카드 */}
         <View style={styles.greetingCard}>
           <Text style={styles.userGreeting}>{displayName}님</Text>
           <Text style={styles.todayMessage}>{todayMessage}</Text>
         </View>
 
-        {/* 입력 */}
         <TextInput
           style={styles.inputBox}
           placeholder="약물 정보를 물어보세요"
@@ -77,7 +72,6 @@ export default function MainScreen({ navigation }) {
           onChangeText={setInputText}
         />
 
-        {/* 이미지 미리보기 */}
         {attachedImage && (
           <View style={styles.imagePreviewBox}>
             <Image
@@ -90,7 +84,6 @@ export default function MainScreen({ navigation }) {
           </View>
         )}
 
-        {/* 버튼 */}
         <View style={styles.buttonRow}>
           <TouchableOpacity style={styles.photoButton} onPress={onPickImage}>
             <Image
@@ -107,7 +100,6 @@ export default function MainScreen({ navigation }) {
           </TouchableOpacity>
         </View>
 
-        {/* 캘린더 */}
         <TouchableOpacity
           style={styles.calendarButton}
           onPress={() => navigation.navigate("Calendar")}
@@ -120,14 +112,12 @@ export default function MainScreen({ navigation }) {
         </TouchableOpacity>
       </View>
 
-      {/* 하단 패턴 (고정) */}
       <Image
         source={require("../../public/image/pattern.png")}
         style={styles.bottomPattern}
         resizeMode="stretch"
       />
 
-      {/* 초대 모달 */}
       <Modal transparent visible={showInviteModal} animationType="fade">
         <View style={styles.modalBackground}>
           <View style={styles.modalBox}>

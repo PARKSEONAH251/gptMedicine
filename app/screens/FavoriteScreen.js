@@ -43,7 +43,6 @@ export default function FavoriteScreen({ navigation, route }) {
 
   return (
     <View style={styles.container}>
-      {/* 헤더 */}
       <View style={styles.headerRow}>
         <Text style={styles.header}>즐겨찾기</Text>
       </View>

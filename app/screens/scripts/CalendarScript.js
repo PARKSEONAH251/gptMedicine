@@ -10,21 +10,10 @@ export default function useCalendarLogic() {
 
   const today = new Date().toISOString().slice(0, 10);
 
-  /* ======================
-     캘린더/로그
-  ====================== */
   const [loading, setLoading] = useState(false);
 
-  /* ======================
-     잠금(UX)
-     - 서버 lock은 delete에서 강제됨
-     - UI는 추가로 비활성화
-  ====================== */
   const [isLocked, setIsLocked] = useState(false);
 
-  /* ======================
-     스케줄 입력 상태 (추가/수정 공용)
-  ====================== */
   const [showAddModal, setShowAddModal] = useState(false);
   const [showEditModal, setShowEditModal] = useState(false);
   const [editingScheduleId, setEditingScheduleId] = useState(null);
@@ -43,18 +32,10 @@ export default function useCalendarLogic() {
   const [selectedDate, setSelectedDate] = useState(today);
   const [logs, setLogs] = useState([]);
 
-  /* ======================
-     Picker 상태
-  ====================== */
   const [showStartPicker, setShowStartPicker] = useState(false);
   const [showEndPicker, setShowEndPicker] = useState(false);
   const [timePickerIndex, setTimePickerIndex] = useState(null);
 
-  /* ======================
-     (선택) 잠금상태 로드
-     - Family 라우트가 /api/family/me 로 locked 배열을 준다는 전제
-     - 없으면 그냥 false 유지
-  ====================== */
   const loadLock = async () => {
     try {
       const res = await ApiService.get("/api/family/me", token);
@@ -69,34 +50,36 @@ export default function useCalendarLogic() {
     }
   };
 
-  /* ======================
-     로그 조회
-  ====================== */
-  const fetchLogs = async (date) => {
-    setLoading(true);
-    try {
-      const url = isGuardianView
-        ? `/api/schedule/logs?date=${date}&targetUser=${targetUser}`
-        : `/api/schedule/logs?date=${date}`;
+  const fetchLogs = async (date, force = false) => {
+    if (!targetUser) return;
 
+    if (force) {
+      setLogs([]);
+      setLoading(true);
+    }
+
+    // 🔥 role 분기 제거 — 항상 targetUser 기준
+    const url = `/api/schedule/logs?date=${date}&targetUser=${targetUser}`;
+
+    try {
       const data = await ApiService.get(url, token);
       setLogs(Array.isArray(data) ? data : []);
     } catch {
       setLogs([]);
+    } finally {
+      setLoading(false);
     }
-    setLoading(false);
   };
 
-const loadSchedules = async () => {
-  try {
-    const data = await ApiService.get("/api/schedule/all", token);
+  const loadSchedules = async () => {
+    const url = isGuardianView
+      ? `/api/schedule/all?targetUser=${targetUser}`
+      : "/api/schedule/all";
+
+    const data = await ApiService.get(url, token);
     setScheduleList(Array.isArray(data) ? data : []);
     setShowScheduleList(true);
-  } catch {
-    setScheduleList([]);
-    setShowScheduleList(true);
-  }
-};
+  };
 
   
   const openEditSchedule = async (scheduleId) => {
@@ -129,13 +112,7 @@ const loadSchedules = async () => {
     }
   };
 
-  /* ======================
-     복용 토글 (UX: Alert 포함)
-     - 서버는 status: null/0/1 중 1<->0 로 토글됨(현재 라우트 기준)
-  ====================== */
   const confirmToggleLog = (log) => {
-    // 잠금은 “삭제/수정” 제한이고, 복용 체크까지 잠그려면 여기서 막으면 됨.
-    // 지금 요구사항은 "보호자 잠금 시 버튼 비활성화"가 주로 삭제/수정이라 판단 → 체크는 허용.
     const isDone = log.status === 1;
 
     Alert.alert(
@@ -176,9 +153,6 @@ const loadSchedules = async () => {
     );
   };
 
-  /* ======================
-     perDay / time
-  ====================== */
   const updatePerDay = (n) => {
     setPerDay(n);
     setTimes((prev) => {
@@ -198,9 +172,6 @@ const loadSchedules = async () => {
     });
   };
 
-  /* ======================
-     모달 초기화
-  ====================== */
   const resetForm = () => {
     setMedicineName("");
     setStartDate(today);
@@ -222,11 +193,7 @@ const loadSchedules = async () => {
     resetForm();
   };
 
-  /* ======================
-     스케줄 생성
-  ====================== */
   const createSchedule = async () => {
-    // 서버 필수: medicine_name/start_date/end_date/times
     if (!medicineName.trim()) return Alert.alert("알림", "약 이름을 입력하세요.");
     if (!startDate || !endDate) return Alert.alert("알림", "시작/종료 날짜를 선택하세요.");
     if (!Array.isArray(times) || times.length === 0) return Alert.alert("알림", "복용 시간을 1개 이상 지정하세요.");
@@ -254,17 +221,18 @@ const loadSchedules = async () => {
     }
   };
 
-  /* ======================
-    전체 스케줄 목록
-  ====================== */
   const [showScheduleList, setShowScheduleList] = useState(false);
   const [scheduleList, setScheduleList] = useState([]);
 
-  /* ======================
-    보호자 전환 관련
-  ====================== */
   const [members, setMembers] = useState([]);
-  const [targetUser, setTargetUser] = useState(user.userID);
+  const [targetUser, setTargetUser] = useState("");
+
+  useEffect(() => {
+  if (user?.userID && !targetUser) {
+    setTargetUser(user.userID);
+  }
+}, [user?.userID]);
+
   const [showMemberModal, setShowMemberModal] = useState(false);
 
   const isGuardianView =
@@ -290,9 +258,6 @@ const loadSchedules = async () => {
     setTargetUser(user.userID);
   };
 
-  /* ======================
-     스케줄 수정 저장 (PUT /:id)
-  ====================== */
   const saveEditSchedule = async () => {
     if (!editingScheduleId) return;
     if (isLocked) return Alert.alert("잠김", "이 스케줄은 보호자에 의해 잠겨 있습니다");
@@ -333,10 +298,7 @@ const loadSchedules = async () => {
     if (typeof v === "object") return v._id || v.schedule_id || "";
     return "";
   };
-  
-  /* ======================
-    스케줄 삭제 (DELETE /:id)
-  ====================== */
+
   const deleteSchedule = async (itemOrId) => {
     const scheduleId = pickScheduleId(itemOrId);
 
@@ -369,17 +331,15 @@ const loadSchedules = async () => {
     ]);
   };
 
-
-  /* ======================
-     초기/변경 시 로드
-  ====================== */
   useEffect(() => {
-    fetchLogs(selectedDate);
-  }, [selectedDate]);
-
-  useEffect(() => {
-    fetchLogs(selectedDate);
+    if (!targetUser || !selectedDate) return;
+    fetchLogs(selectedDate, true);
   }, [targetUser]);
+
+  useEffect(() => {
+    if (!targetUser || !selectedDate) return;
+    fetchLogs(selectedDate, true);
+  }, [selectedDate]);
 
   useEffect(() => {
     loadLock();
@@ -387,26 +347,21 @@ const loadSchedules = async () => {
 
   return {
     user,
-
     selectedDate,
     setSelectedDate,
     logs,
     loading,
-
     showScheduleList,
     setShowScheduleList,
     scheduleList,
     loadSchedules,
-
     isLocked,
     loadLock,
-
     showAddModal,
     setShowAddModal,
     showEditModal,
     setShowEditModal,
     closeAllModals,
-
     medicineName,
     setMedicineName,
     startDate,
@@ -423,18 +378,15 @@ const loadSchedules = async () => {
     updatePerDay,
     times,
     updateTime,
-
     showStartPicker,
     setShowStartPicker,
     showEndPicker,
     setShowEndPicker,
     timePickerIndex,
     setTimePickerIndex,
-
     createSchedule,
     deleteSchedule,
     confirmToggleLog,
-
     members,
     loadMembers,
     showMemberModal,

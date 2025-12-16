@@ -19,20 +19,18 @@ export default function GptResultScreen({ route, navigation }) {
   return (
     <View style={styles.container}>
       <ScrollView contentContainerStyle={styles.content}>
-        {/* 질문 */}
+        
         <View style={styles.card}>
           <Text style={styles.label}>질문</Text>
           <Text style={styles.questionText}>{question}</Text>
         </View>
 
-        {/* 답변 */}
         <View style={[styles.card, styles.answerCard]}>
           <Text style={styles.label}>GPT 답변</Text>
           <Text style={styles.answerText}>{answer}</Text>
         </View>
       </ScrollView>
 
-      {/* 하단 고정 버튼 */}
       <View style={styles.footer}>
         <TouchableOpacity
           style={styles.favoriteButton}

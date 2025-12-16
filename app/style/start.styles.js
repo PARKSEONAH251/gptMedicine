@@ -9,7 +9,6 @@ export default StyleSheet.create({
     justifyContent: "space-between",
   },
 
-  /* 패턴 */
   topPattern: {
     width: "100%",
     height: 140,
@@ -19,7 +18,6 @@ export default StyleSheet.create({
     height: 160,
   },
 
-  /* 중앙 */
   centerContent: {
     alignItems: "center",
     marginTop: -40,
@@ -40,7 +38,6 @@ export default StyleSheet.create({
     color: "#555",
   },
 
-  /* 버튼 */
   buttonArea: {
     paddingHorizontal: 24,
     marginBottom: 30,

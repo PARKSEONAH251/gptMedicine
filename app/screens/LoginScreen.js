@@ -42,17 +42,14 @@ export default function LoginScreen({ navigation }) {
 
   return (
     <View style={styles.container}>
-      {/* 상단 패턴 */}
       <Image
         source={require("../../public/image/Primary_Pattern.png")}
         style={styles.topPattern}
         resizeMode="cover"
       />
 
-      {/* 타이틀 */}
       <Text style={styles.title}>로그인</Text>
 
-      {/* 입력 */}
       <TextInput
         style={styles.input}
         placeholder="아이디"
@@ -69,12 +66,10 @@ export default function LoginScreen({ navigation }) {
         secureTextEntry
       />
 
-      {/* 로그인 버튼 */}
       <TouchableOpacity style={styles.loginButton} onPress={login}>
         <Text style={styles.loginButtonText}>로그인</Text>
       </TouchableOpacity>
 
-      {/* 카카오 로그인 */}
       <TouchableOpacity style={styles.kakaoButton}>
         <Image
           source={require("../../public/image/kakao.png")}
@@ -82,8 +77,6 @@ export default function LoginScreen({ navigation }) {
         />
         <Text style={styles.kakaoButtonText}>카카오로 로그인</Text>
       </TouchableOpacity>
-
-      {/* 회원가입 이동 */}
       <TouchableOpacity
         style={styles.linkButton}
         onPress={() => navigation.navigate("Signup")}

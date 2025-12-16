@@ -11,8 +11,7 @@ export default StyleSheet.create({
     padding: 20,
     paddingBottom: 120,
   },
-
-  /* 카드 공통 */
+  
   card: {
     backgroundColor: "#F4F4F4",
     borderRadius: 18,
@@ -43,7 +42,6 @@ export default StyleSheet.create({
     color: "#222",
   },
 
-  /* 하단 버튼 */
   footer: {
     position: "absolute",
     bottom: 0,

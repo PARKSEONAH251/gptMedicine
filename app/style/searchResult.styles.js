@@ -8,7 +8,6 @@ export default StyleSheet.create({
     backgroundColor: "#F8F9FA"
   },
 
-  /* 검색창 */
   searchBox: {
     flexDirection: "row",
     alignItems: "center",
@@ -35,7 +34,6 @@ export default StyleSheet.create({
     fontWeight: "bold",
   },
 
-  /* 결과 */
   resultArea: {
     flex: 1,
     marginTop: 10,
